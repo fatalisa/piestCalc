@@ -15,8 +15,7 @@
       baseUrl: '/',
       waitSeconds: 15, //超时时间
       paths: {
-        "nomui":'libs/nomui/nomui.js',
-     
+        "pro-group":'/nomui-components/pro-group/index',
       },
       shim: {
        

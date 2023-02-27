@@ -10,10 +10,8 @@ define([], function () {
 
         body: {
           children: {
-            // component: 'Router',
-            // defaultPath: 'start',
-            children:'111'
-
+            component: 'Router',
+            defaultPath: 'home',
           },
         },
       }

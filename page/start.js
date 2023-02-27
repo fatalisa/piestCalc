@@ -1,7 +1,10 @@
-define([], function () {
+define(['pro-group'], function (ProGroup) {
 
+  
     return {
-      children:'aaa'
+      children:{
+        component:ProGroup,
+      }
      
      
     }

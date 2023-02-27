@@ -1,0 +1,257 @@
+.nom-pro-workflow {
+  background: #fafafa;
+  border-radius: 4px;
+  padding: 2rem;
+  overflow: auto;
+  position: relative;
+  min-height: 50vh;
+}
+.nom-pro-workflow > .workflow-tools {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 5;
+}
+.nom-pro-workflow > .workflow-empty-btn {
+  text-align: center;
+  display: inline-flex;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #888;
+  cursor: pointer;
+}
+.nom-pro-workflow > .workflow-empty-btn .nom-icon {
+  font-size: 3rem;
+}
+.nom-pro-workflow > .workflow-empty-btn:hover {
+  color: #333;
+}
+.nom-pro-workflow .workflow-flag {
+  text-align: center;
+  width: 5rem;
+  height: 5rem;
+  padding: 1rem 0;
+  background: #f0f0f0;
+  border-radius: 200px;
+  color: #888;
+  font-size: 10px;
+}
+.nom-pro-workflow .workflow-flag .nom-icon {
+  font-size: 1.5rem;
+}
+.nom-pro-workflow .workflow-card-box {
+  width: 90%;
+  min-width: 120px;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 0 2px -1px rgba(0, 0, 0, 0.5), 0 10px 15px -5px rgba(0, 0, 0, 0.15);
+  padding: 1.5rem;
+  margin: 0 1rem;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.nom-pro-workflow .workflow-card-box:hover {
+  background: #f8f8f8;
+}
+.nom-pro-workflow .workflow-card-box .remove-flow-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  visibility: hidden;
+}
+.nom-pro-workflow .workflow-card-box:hover .remove-flow-btn {
+  visibility: visible;
+}
+.nom-pro-workflow .workflow-add {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 200px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+.nom-pro-workflow .workflow-add:hover {
+  background: #f5f5f5;
+}
+.nom-pro-workflow .workflow-case {
+  width: 1.75rem;
+  height: 1.75rem;
+  margin: 0.25rem 0;
+  transform: rotate(45deg);
+  font-size: 100%;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+.nom-pro-workflow .workflow-case:hover {
+  background: #f5f5f5;
+}
+.nom-pro-workflow .workflow-case.workflow-case-active {
+  background: #f9c300;
+  color: #fff;
+  border: none;
+}
+.nom-pro-workflow .workflow-case svg {
+  transform: rotate(-45deg);
+}
+.nom-pro-workflow .workflow-line-y {
+  height: 1.5rem;
+  width: 2px;
+  background: #ddd;
+}
+.nom-pro-workflow .workflow-line-y.fit {
+  height: 100%;
+  min-height: 1.5rem;
+}
+.workflow-add-menu {
+  padding: 1rem;
+  width: 160px;
+}
+.workflow-add-menu li {
+  cursor: pointer;
+}
+.workflow-add-menu li:hover {
+  color: var(--nom-color-primary);
+  background: #f5f5f5;
+}
+.workflow-add-menu .nom-icon {
+  font-size: 120%;
+  margin-right: 0.5rem;
+}
+.workflow-card {
+  position: relative;
+}
+.workflow-card > .nom-flex-item:last-child .workflow-line-y {
+  height: 100%;
+  min-height: 1.5rem;
+}
+.workflow-card .fit,
+.workflow-card .nom-flex-item:last-child:not(.workflow-line-y) {
+  height: 100%;
+}
+.workflow-item > .nom-flex-item:first-child {
+  height: 100%;
+}
+.equal-group > .nom-flex-item {
+  height: 100%;
+}
+.equal-flow {
+  position: relative;
+}
+.equal-flow::before {
+  display: block;
+  content: '';
+  border-top: 1px solid #ddd;
+  position: absolute;
+  top: 0;
+}
+.equal-flow::after {
+  display: block;
+  content: '';
+  border-bottom: 1px solid #ddd;
+  position: absolute;
+  bottom: 0;
+}
+.equal-flow[data-equal-length='2']::before {
+  left: 25%;
+  right: 25%;
+}
+.equal-flow[data-equal-length='2']::after {
+  left: 25%;
+  right: 25%;
+}
+.equal-flow[data-equal-length='2'] > .nom-flex-item {
+  width: 50%;
+}
+.equal-flow[data-equal-length='3']::before {
+  left: 16.6%;
+  right: 16.6%;
+}
+.equal-flow[data-equal-length='3']::after {
+  left: 16.6%;
+  right: 16.6%;
+}
+.equal-flow[data-equal-length='3'] > .nom-flex-item {
+  width: 33.33%;
+}
+.equal-flow[data-equal-length='4']::before {
+  left: 12.5%;
+  right: 12.5%;
+}
+.equal-flow[data-equal-length='4']::after {
+  left: 12.5%;
+  right: 12.5%;
+}
+.equal-flow[data-equal-length='4'] > .nom-flex-item {
+  width: 25%;
+}
+.equal-flow[data-equal-length='5']::before {
+  left: 10%;
+  right: 10%;
+}
+.equal-flow[data-equal-length='5']::after {
+  left: 10%;
+  right: 10%;
+}
+.equal-flow[data-equal-length='5'] > .nom-flex-item {
+  width: 20%;
+}
+.equal-flow[data-equal-length='6']::before {
+  left: 8.3%;
+  right: 8.3%;
+}
+.equal-flow[data-equal-length='6']::after {
+  left: 8.3%;
+  right: 8.3%;
+}
+.equal-flow[data-equal-length='6'] > .nom-flex-item {
+  width: 16.66%;
+}
+.equal-flow[data-equal-length='7']::before {
+  left: 7.1%;
+  right: 7.1%;
+}
+.equal-flow[data-equal-length='7']::after {
+  left: 7.1%;
+  right: 7.1%;
+}
+.equal-flow[data-equal-length='7'] > .nom-flex-item {
+  width: 14.28%;
+}
+.equal-flow[data-equal-length='8']::before {
+  left: 6.2%;
+  right: 6.2%;
+}
+.equal-flow[data-equal-length='8']::after {
+  left: 6.2%;
+  right: 6.2%;
+}
+.equal-flow[data-equal-length='8'] > .nom-flex-item {
+  width: 12.5%;
+}
+.equal-flow[data-equal-length='9']::before {
+  left: 5.45%;
+  right: 5.45%;
+}
+.equal-flow[data-equal-length='9']::after {
+  left: 5.45%;
+  right: 5.45%;
+}
+.equal-flow[data-equal-length='9'] > .nom-flex-item {
+  width: 11.11%;
+}
+.equal-flow > .nom-flex-item > .p-fit > .nom-flex-item:last-child {
+  height: 100%;
+}
+.workflow-root > .nom-flex-item:first-child .workflow-card-before,
+.workflow-root > .nom-flex-item:first-child .remove-flow-btn {
+  display: none;
+}
+
+.workflow-item-hidden >.nom-flex-item >.workflow-card >.nom-flex-item {
+  display: none;
+}
+.workflow-item-hidden >.nom-flex-item >.workflow-card >.nom-flex-item:first-child {
+  display: block;
+}
