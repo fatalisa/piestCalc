@@ -1,4 +1,4 @@
-define(['css!/webapp/nomui-components/pro-list/index.css'], function () {
+define(['css!nomui-components/pro-list/index.css'], function () {
   class ProList extends nomui.Component {
     constructor(props, ...mixins) {
       const defaults = {

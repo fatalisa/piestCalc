@@ -17,6 +17,7 @@
       paths: {
         "pro-group":'/nomui-components/pro-group/index',
         "pro-workflow":'/nomui-components/pro-workflow/index',
+        "pro-list":'/nomui-components/pro-list/index',
       },
       shim: {
        

@@ -1,4 +1,4 @@
-define(['css!/webapp/nomui-components/pro-workflow/index.css'], function () {
+define(['css!/nomui-components/pro-workflow/index.css'], function () {
   class ProWorkflow extends nomui.Component {
     constructor(props, ...mixins) {
       const defaults = {
