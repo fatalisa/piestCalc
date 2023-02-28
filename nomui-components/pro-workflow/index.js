@@ -1,4 +1,4 @@
-define(['flow-format', 'css!/webapp/nomui-components/pro-workflow/index.css'], function (FlowFormat) {
+define(['css!/webapp/nomui-components/pro-workflow/index.css'], function () {
   class ProWorkflow extends nomui.Component {
     constructor(props, ...mixins) {
       const defaults = {
@@ -512,107 +512,11 @@ define(['flow-format', 'css!/webapp/nomui-components/pro-workflow/index.css'], f
       })
     }
 
-    // 保存流程
-    saveFlow() {
-      if (this.props.data.data.length == 0) {
-        new nomui.Alert({
-          type: 'warning',
-          title: '警告',
-          description: '未检测到步骤信息!',
-        })
-        return
-      }
-      var newFlowUIData = this.getData()
-      var flowFormat = new FlowFormat()
-      flowFormat.updateNewFlowUIData(newFlowUIData)
-      var oldFlowUIData = flowFormat.getOldData()
-      var mltiSelectDataModel = flowFormat.props.personSelectData
-      mltiSelectDataModel.versionId = this.props.workFlowInfo.Model.Version.Id
-      mltiSelectDataModel.oid = this.props.workFlowInfo.Model.oid
 
-      var mltiSelectDataModelStr = JSON.stringify(mltiSelectDataModel)
-      let formData = new FormData()
-      formData.append('id', this.props.workFlowInfo.Model.Version.Id)
-      formData.append('designJson', JSON.stringify(oldFlowUIData))
-      formData.append('oid', this.props.workFlowInfo.Model.oid)
-      formData.append('mltiSelectDataStr', mltiSelectDataModelStr)
-
-      axios({
-        method: 'post',
-        url: `/Common/WorkFlowVersion/SaveVersionNew`,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        data: formData,
-      }).then((res) => {
-        if (res.Success) {
-          new nomui.Alert({
-            type: 'success',
-            title: '保存成功',
-          })
-          window.location.reload();
-        } else {
-          new nomui.Alert({
-            type: 'error',
-            title: '保存失败',
-          })
-        }
-      })
-    }
-
-    // 发布工作流
-    publishFlow() {
-      if (this.props.data.data.length == 0) {
-        new nomui.Alert({
-          type: 'warning',
-          title: '警告',
-          description: '未检测到步骤信息!',
-        })
-        return
-      }
-      var newFlowUIData = this.getData()
-      var flowFormat = new FlowFormat()
-      flowFormat.updateNewFlowUIData(newFlowUIData)
-      var oldFlowUIData = flowFormat.getOldData()
-      var mltiSelectDataModel = flowFormat.props.personSelectData
-      mltiSelectDataModel.versionId = this.props.workFlowInfo.Model.Version.Id
-      mltiSelectDataModel.oid = this.props.workFlowInfo.Model.oid
-
-      var mltiSelectDataModelStr = JSON.stringify(mltiSelectDataModel)
-
-      let formData = new FormData()
-      formData.append('id', this.props.workFlowInfo.Model.Version.Id)
-      formData.append('designJson', JSON.stringify(oldFlowUIData))
-      formData.append('oid', this.props.workFlowInfo.Model.oid)
-      formData.append('mltiSelectDataStr', mltiSelectDataModelStr)
-      axios({
-        method: 'post',
-        url: `/Common/WorkFlowVersion/PublicVersionNew`,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        data: formData,
-      }).then((res) => {
-        if (res.Success) {
-          new nomui.Alert({
-            type: 'success',
-            title: '发布成功',
-          })
-          window.location.reload();
-        } else {
-          new nomui.Alert({
-            type: 'error',
-            title: '发布失败',
-          })
-        }
-      })
-    }
 
     _ifItemInChildren({ target, item }) {
       let flag = false
-      // if (JSON.stringify(arr).includes(item)) {
-      //   return true
-      // }
+
 
       const mapArr = (data) => {
         for (let i = 0; i < data.length; i++) {

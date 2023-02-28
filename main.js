@@ -16,6 +16,7 @@
       waitSeconds: 15, //超时时间
       paths: {
         "pro-group":'/nomui-components/pro-group/index',
+        "pro-workflow":'/nomui-components/pro-workflow/index',
       },
       shim: {
        
