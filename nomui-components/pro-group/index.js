@@ -28,14 +28,17 @@ define(["css!/nomui-components/pro-group/index.css"], function () {
         const groups = this._getGroupData()
       this.setProps({
         children:{
-            component:'Flex',
-            cols:groups
+            component:'List',
+            sortable: true,
+            items:groups
         }
       })
     }
 
     _getGroupData() {
+        const {data} = this.props
         
+
     }
   }
 
