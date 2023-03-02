@@ -15,6 +15,7 @@
       baseUrl: '/',
       waitSeconds: 15, //超时时间
       paths: {
+        "menu-service":'/libs/menu-service',
         "pro-group":'/nomui-components/pro-group/index',
         "pro-workflow":'/nomui-components/pro-workflow/index',
         "pro-list":'/nomui-components/pro-list/index',
@@ -24,7 +25,7 @@
       },
     })
 
-    require([], function () {
+    require(['menu-service'], function () {
 
 
 
