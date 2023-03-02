@@ -27,7 +27,7 @@
 
     require(['menu-service'], function () {
 
-
+      window.MenuService = new MenuService()
 
       win.nomapp = new nomui.App({
         viewsDir: 'page',

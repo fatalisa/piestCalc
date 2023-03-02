@@ -17,6 +17,6 @@ define([], function () {
 
   MenuService.prototype.replace = function () {};
 
-  window.MenuService = new MenuService()
+
   return MenuService ;
 });
