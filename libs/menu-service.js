@@ -56,7 +56,7 @@ define([], function () {
     return arr
   }
 
-  // 数组插入子项
+  // 数组指定item的子集插入子项
   function appendChild(param) {
     const { data } = service
     function findArr (item){
@@ -78,7 +78,7 @@ define([], function () {
     findArr(data)
   }
 
-    // 数组插入子项
+    // 数组指定item后面添加对象
     function after(param) {
       const { data } = service
       function findArr (item){
