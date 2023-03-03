@@ -4,7 +4,7 @@ define([], function () {
 
   VNextMenu = function () {
     service = this
-    this.data = [];
+    this.data = {};
     this._itemList = []
   };
 
@@ -21,9 +21,9 @@ define([], function () {
   
 
   // 获取item & 修改item值（可选）
-  function getItem({ arr, name, data }) {
+  function getItem({ group, arr, name, data }) {
     if (!arr) {
-      arr = service.data
+      arr = service.data[group]
     }
     let obj = null
     function findArr (item)  {
@@ -58,7 +58,7 @@ define([], function () {
   }
 
   // 数组指定item的子集插入子项
-  function appendChild(param) {
+  function appendChild(group,param) {
     const { data } = service
     function findArr (item){
       for (let i = 0; i < item.length; i++) {
@@ -76,7 +76,7 @@ define([], function () {
         }
       }
     }
-    findArr(data)
+    findArr(data[group])
   }
 
     // 数组指定item后面添加对象
@@ -98,44 +98,52 @@ define([], function () {
     }
 
   // 添加项
-  function addItem(item) {
+  function addItem(group,item) {
     if (item.parentName) {
-      
-      appendChild(item)
+      appendChild(group,item)
     }
     else {
-      service.data.push(item)
+      service.data[group].push(item)
     }
-    service._itemList.push(item.name)
+    service._itemList[group].push(item.name)
   }
 
   // 编辑项
-  function editItem(item) {
-    getItem({name:item.name,data:item})
+  function editItem(group,item) {
+    getItem({group:group,name:item.name,data:item})
   }
 
-  function addSingle(param) {
-    const {name} = param
-    if (isDuplicate(name)) {
+  function addSingle(group,item) {
+
+    if (isDuplicate(item.name)) {
       console.warn('已存在同名菜单，请修改名称！')
       return
     }
-    addItem(param)
+    addItem(group,item)
   } 
 
-  VNextMenu.prototype.getData = function () {
-    return this.data
+  VNextMenu.prototype.getData = function (group) {
+    return this.data[group] || []
   };
 
-  VNextMenu.prototype.add = function (list) {
+  VNextMenu.prototype.add = function (group,list) {
+    if (! service.data[group]) {
+      service.data[group] = []
+    }
+    if (! service._itemList[group]) {
+      service._itemList[group] = []
+    }
+
     list.forEach(n=>{
-      addSingle(n)
+      addSingle(group,n)
     })
   };
 
   VNextMenu.prototype.remove = function () {};
 
-  VNextMenu.prototype.replace = function () {};
+  VNextMenu.prototype.replace = function (group,item) {
+    editItem(group,item)
+  };
 
   if (!window.MenuService) {
     window.MenuService = new VNextMenu()
