@@ -1,7 +1,8 @@
 define([], function () {
   let service = null;
+  
 
-  MenuService = function () {
+  VNextMenu = function () {
     service = this
     this.data = [];
     this._itemList = []
@@ -125,20 +126,20 @@ define([], function () {
 
   } 
 
-  MenuService.prototype.getData = function () {
+  VNextMenu.prototype.getData = function () {
     return this.data
   };
 
-  MenuService.prototype.add = function (list) {
+  VNextMenu.prototype.add = function (list) {
     list.forEach(n=>{
       addSingle(n)
     })
   };
 
-  MenuService.prototype.remove = function () {};
+  VNextMenu.prototype.remove = function () {};
 
-  MenuService.prototype.replace = function () {};
+  VNextMenu.prototype.replace = function () {};
 
-
-  return MenuService ;
+  MenuService = new VNextMenu()
+  return MenuService;
 });

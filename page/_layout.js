@@ -10,11 +10,11 @@ define([ 'menu-data.js'], function (menuData) {
         sider:{
             children:{
               component:'Menu',
-              compact:true,
               ref:(c)=>{
                 mainMenuRef = c
               },
-              items:items
+              items:items,
+              itemSelectable:true,
             }
         },
 

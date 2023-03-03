@@ -1,4 +1,4 @@
-define([], function () {
+define(['menu-service'], function (MenuS) {
 
   
     return {
@@ -10,7 +10,7 @@ define([], function () {
                 text:'getData',
                 onClick:()=>{
                     new nomui.Alert({
-                        description:JSON.stringify(MenuServ.getData())
+                        description:JSON.stringify(MenuS.getData())
                     })
                
                 }
@@ -19,7 +19,7 @@ define([], function () {
                 component:'Button',
                 text:'添加项',
                 onClick:()=>{
-                    MenuServ.add([{
+                    MenuS.add([{
                         name:'menu1',
                         parentName:null,
                         path:'!menu1',
@@ -43,7 +43,7 @@ define([], function () {
                 component:'Button',
                 text:'添加子项',
                 onClick:()=>{
-                    MenuServ.add([{
+                    MenuS.add([{
                         name:'menu1Child',
                         parentName:'menu1',
                         path:'!menu1Child',
@@ -56,9 +56,8 @@ define([], function () {
                 component:'Button',
                 text:'覆盖菜单',
                 onClick:()=>{
-                    MenuServ.add([{
+                    MenuS.add([{
                         name:'menu3',
-                     
                         path:'!menu3New',
                         order:4,
                         permission:'VNext'

@@ -25,9 +25,9 @@
       },
     })
 
-    require(['menu-service'], function () {
+    require([], function () {
 
-      window.MenuServ = new MenuService()
+  
 
       win.nomapp = new nomui.App({
         viewsDir: 'page',
