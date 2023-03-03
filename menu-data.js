@@ -21,8 +21,8 @@ define([], function () {
     {
       text: "MenuService",
       icon: "home",
-      url: "#!menu-service",
-      key: "#!menu-service",
+      url: "#!menu-service-demo",
+      key: "#!menu-service-demo",
     },
   ];
 

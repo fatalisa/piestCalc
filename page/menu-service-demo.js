@@ -25,6 +25,7 @@ define(['menu-service'], function (MenuS) {
                             parentName:null,
                             path:'!menu3',
                             order:3,
+                            invisible:true
                         },{
                         name:'menu1',
                         parentName:null,

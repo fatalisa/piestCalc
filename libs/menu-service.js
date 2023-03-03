@@ -26,7 +26,8 @@ define([], function () {
         if (item[i].name && item[i].name === name) {
           obj = item[i];
           if (data) {
-            item[i] = Object.assign({}, item[i], data);
+            const c = item[i].children ? { children: item[i].children } : {};
+            item[i] = Object.assign({}, c, data);
           }
           break;
         } else if (item[i].children) {
@@ -40,17 +41,6 @@ define([], function () {
     return obj;
   }
 
-  // 数组插入项
-  function appendToArray(arr, index, value) {
-    arr.splice(index, 0, value);
-    return arr;
-  }
-
-  // 数组删除项
-  function removeFromArray(arr, index) {
-    arr.splice(index, 1);
-    return arr;
-  }
 
   // 数组指定item的子集插入子项
   function appendChild(group, param) {
@@ -73,23 +63,6 @@ define([], function () {
     findArr(data[group]);
   }
 
-  // 数组指定item后面添加对象
-  function after(param) {
-    const { data } = service;
-    function findArr(item) {
-      for (let i = 0; i < item.length; i++) {
-        if (item[i].name && item[i].name === param.parentName) {
-          appendToArray(item, i + 1, param);
-          break;
-        } else if (item[i].children) {
-          item[i].children.forEach((n) => {
-            findArr(n);
-          });
-        }
-      }
-    }
-    findArr(data);
-  }
 
   // 添加项
   function addItem(group, item) {
@@ -151,6 +124,18 @@ define([], function () {
   VNextMenu.prototype.remove = function () {};
 
   VNextMenu.prototype.replace = function (group, item) {
+    if (!service.data[group]) {
+      service.data[group] = [];
+    }
+    if (!service._itemList[group]) {
+      service._itemList[group] = [];
+    }
+    if (!isDuplicate(group, item.name)) {
+      console.warn("未找到同名菜单，即将为你创建。");
+      addSingle(group, item);
+      sortArray(group);
+      return;
+    }
     editItem(group, item);
     sortArray(group);
   };
