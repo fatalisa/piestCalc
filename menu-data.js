@@ -18,6 +18,12 @@ define([], function () {
       url: "#!pro-group",
       key: "#!pro-group",
     },
+    {
+      text: "MenuService",
+      icon: "home",
+      url: "#!menu-service",
+      key: "#!menu-service",
+    },
   ];
 
   const bfs = (node, action, filter, copyAction, childrenField) => {

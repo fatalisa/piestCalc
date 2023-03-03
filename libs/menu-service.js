@@ -10,7 +10,7 @@ define([], function () {
   
 
 
-  // 是否已存在item
+  // 判断是否已存在item
   function isReplace(key) {
     if (service._itemList.includes(key)) {
       return true
@@ -57,12 +57,16 @@ define([], function () {
   }
 
   // 数组插入子项
-  function appendItem(param) {
+  function appendChild(param) {
     const { data } = service
     function findArr (item){
       for (let i = 0; i < item.length; i++) {
         if (item[i].name && item[i].name === param.parentName) {
-          appendToArray(item, i + 1, param)
+          
+          if (!item[i].children) {
+            item[i].children = []
+          }
+          item[i].children.push(param)
           break
         } else if (item[i].children) {
           item[i].children.forEach((n) => {
@@ -74,13 +78,32 @@ define([], function () {
     findArr(data)
   }
 
+    // 数组插入子项
+    function after(param) {
+      const { data } = service
+      function findArr (item){
+        for (let i = 0; i < item.length; i++) {
+          if (item[i].name && item[i].name === param.parentName) {
+            appendToArray(item, i + 1, param)
+            break
+          } else if (item[i].children) {
+            item[i].children.forEach((n) => {
+              findArr(n)
+            })
+          }
+        }
+      }
+      findArr(data)
+    }
+
   // 添加项
   function addItem(item) {
     if (item.parentName) {
-      appendItem(item)
+      
+      appendChild(item)
     }
     else {
-      service.data.push(param)
+      service.data.push(item)
     }
     service._itemList.push(item.name)
   }
@@ -97,8 +120,7 @@ define([], function () {
 
     }
     else {
-      addItem()
-
+      addItem(param)
     }
 
   } 
