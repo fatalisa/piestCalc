@@ -140,6 +140,9 @@ define([], function () {
 
   VNextMenu.prototype.replace = function () {};
 
-  MenuService = new VNextMenu()
-  return MenuService;
+  if (!window.MenuService) {
+    window.MenuService = new VNextMenu()
+  }
+  
+  return  window.MenuService;
 });
