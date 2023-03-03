@@ -12,13 +12,13 @@ define([], function () {
 
 
   // 判断是否已存在item
-  function isReplace(key) {
+  function isDuplicate(key) {
     if (service._itemList.includes(key)) {
       return true
     }
     return false
   }
-
+  
 
   // 获取item & 修改item值（可选）
   function getItem({ arr, name, data }) {
@@ -115,15 +115,12 @@ define([], function () {
   }
 
   function addSingle(param) {
-    const {name,parentName,path,order} = param
-    if (isReplace(name)) {
-      editItem(param)
-
+    const {name} = param
+    if (isDuplicate(name)) {
+      console.warn('已存在同名菜单，请修改名称！')
+      return
     }
-    else {
-      addItem(param)
-    }
-
+    addItem(param)
   } 
 
   VNextMenu.prototype.getData = function () {
