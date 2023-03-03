@@ -12,8 +12,8 @@ define([], function () {
 
 
   // 判断是否已存在item
-  function isDuplicate(key) {
-    if (service._itemList.includes(key)) {
+  function isDuplicate(group,key) {
+    if (service._itemList[group].includes(key)) {
       return true
     }
     return false
@@ -115,8 +115,8 @@ define([], function () {
 
   function addSingle(group,item) {
 
-    if (isDuplicate(item.name)) {
-      console.warn('已存在同名菜单，请修改名称！')
+    if (isDuplicate(group,item.name)) {
+      console.warn('操作终止，因为存在同名菜单，请修改名称后重试！')
       return
     }
     addItem(group,item)
