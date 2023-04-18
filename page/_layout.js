@@ -21,8 +21,9 @@ define([ 'menu-data.js'], function (menuData) {
         body: {
           children: {
             component: 'Router',
-            defaultPath: 'home',
+            defaultPath: 'pro-list',
           },
         },
+       
       }
 })

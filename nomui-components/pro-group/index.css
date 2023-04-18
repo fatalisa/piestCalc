@@ -1,0 +1,6 @@
+.pro-group-checkbox {
+    border:1px solid var(--nom-border-color);
+    padding:.05rem .25rem;
+    font-size: .85rem;
+    border-radius: 2px;
+}
