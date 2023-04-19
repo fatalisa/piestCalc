@@ -15,6 +15,7 @@
       baseUrl: '/',
       waitSeconds: 15, //超时时间
       paths: {
+        "dragula":'libs/dragula/dragula.min',
         "menu-service":'/libs/menu-service',
         "pro-group":'/nomui-components/pro-group/index',
         "pro-workflow":'/nomui-components/pro-workflow/index',
