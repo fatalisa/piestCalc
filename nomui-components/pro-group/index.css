@@ -7,13 +7,23 @@
 .nom-pro-group .pro-group-main,.nom-pro-group .pro-group-main >ul {
     height: 100%;
 }
+
+.nom-pro-group .pro-group-box-list {
+    height: 100%;
+}
 .nom-pro-group .pro-group-box-list > ul {
-    min-height: 100px;
+    height:100%;
+    align-content: flex-start;
 }
 .nom-pro-group .pro-group-box {
     width:260px;
+    height: 100%;
     padding:.5rem;
 
+}
+
+.nom-pro-group .pro-group-box>.nom-flex-item:nth-child(2) {
+    height: 100%;
 }
 
 .nom-pro-group .pro-group-title-count {

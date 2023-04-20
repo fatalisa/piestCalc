@@ -87,13 +87,26 @@ define(['dragula',"css!/libs/dragula/dragula.min.css","css!/nomui-components/pro
       lists.forEach(n=>{
         listArr.push(n.querySelector('ul'))
       })
+      
 
       this.boxDrag =  Dragula({
         containers:boxArr,
+        moves: function (el, source, handle, sibling) {
+          if (handle.closest('.pro-group-title')) {
+            return true
+          }
+          return false
+        },
       })
  
       this.listDrag = Dragula({
         containers:listArr,
+        moves: function (el, source, handle, sibling) {
+          if (handle.closest('.pro-group-card ')) {
+            return true
+          }
+          return false
+        },
       })
     }
 
@@ -158,6 +171,9 @@ define(['dragula',"css!/libs/dragula/dragula.min.css","css!/nomui-components/pro
                 children:{
                   component:'Flex',
                   gutter:'small',
+                  classes:{
+                    'pro-group-title':true
+                  },
                   attrs:{
                     style:{
                       padding:'0 .25rem .5rem .25rem'
