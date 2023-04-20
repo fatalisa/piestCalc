@@ -19,7 +19,6 @@
     width:260px;
     height: 100%;
     padding:.5rem;
-
 }
 
 .nom-pro-group .pro-group-box>.nom-flex-item:nth-child(2) {
@@ -30,7 +29,7 @@
     color:var(--nom-color-text-2);
 }
 
-.nom-pro-group .pro-group-card {
+.pro-group-card {
     padding:.75rem;
     background: #fff;
     border-radius: 4px;
@@ -38,7 +37,7 @@
     margin-bottom: .5rem;
 }
 
-.nom-pro-group .pro-group-card  .pro-group-event-icon {
+.pro-group-card  .pro-group-event-icon {
     color:var(--nom-color-text-3);
     margin-right: .25rem;
 }
