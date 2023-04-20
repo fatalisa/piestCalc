@@ -206,11 +206,17 @@ define(['dragula',"css!/libs/dragula/dragula.min.css","css!/nomui-components/pro
                     },
                     gap:'small',
                     rows:[
+                     
                       {
           
                         align:'start',
           
                         cols:[
+                          {
+                            classes:{
+                              'pro-group-card-line':true
+                            }
+                          },
                           {
                             classes:{
                               'pro-group-checkbox':true,
