@@ -1,3 +1,34 @@
+.nom-pro-group {
+    padding:1rem;
+    background: var(--nom-color-fill-0);
+    height: 100%;
+}
+.nom-pro-group .pro-group-box-list > ul {
+    min-height: 100px;
+}
+.nom-pro-group .pro-group-box {
+    width:260px;
+    padding:.5rem;
+
+}
+
+.nom-pro-group .pro-group-card {
+    padding:.5rem;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow:0 0 2px -1px rgba(0, 0, 0, 0.5), 0 3px 12px -5px rgba(0, 0, 0, 0.15);
+    margin-bottom: .5rem;
+
+
+
+
+}
+
+.nom-pro-group .pro-group-card  .pro-group-event-icon {
+    color:var(--nom-color-text-3);
+    margin-right: .25rem;
+}
+
 .pro-group-checkbox {
     border:1px solid var(--nom-border-color);
     padding:.05rem .25rem;
