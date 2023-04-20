@@ -3,6 +3,10 @@
     background: var(--nom-color-fill-0);
     height: 100%;
 }
+
+.nom-pro-group .pro-group-main,.nom-pro-group .pro-group-main >ul {
+    height: 100%;
+}
 .nom-pro-group .pro-group-box-list > ul {
     min-height: 100px;
 }
@@ -17,7 +21,7 @@
 }
 
 .nom-pro-group .pro-group-card {
-    padding:.5rem;
+    padding:.75rem;
     background: #fff;
     border-radius: 4px;
     box-shadow:0 0 2px -1px rgba(0, 0, 0, 0.5), 0 3px 12px -5px rgba(0, 0, 0, 0.15);
@@ -34,6 +38,7 @@
     padding:.05rem .25rem;
     font-size: .85rem;
     border-radius: 2px;
+    margin-right: .25rem;
 }
 
 .pro-group li {

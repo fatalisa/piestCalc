@@ -77,14 +77,23 @@ define(['dragula',"css!/libs/dragula/dragula.min.css","css!/nomui-components/pro
     }
 
     _initDragable() {
-      const containers = []
-      const list = this.element.querySelectorAll('.pro-group-box-list')
-      list.forEach(n=>{
-        containers.push(n.querySelector('ul'))
+
+      const listArr = []
+
+      const boxArr = [this.element.querySelector('.pro-group-main ul')]
+
+
+      const lists = this.element.querySelectorAll('.pro-group-box-list')
+      lists.forEach(n=>{
+        listArr.push(n.querySelector('ul'))
       })
 
-      Dragula({
-        containers:containers,
+      this.boxDrag =  Dragula({
+        containers:boxArr,
+      })
+ 
+      this.listDrag = Dragula({
+        containers:listArr,
       })
     }
 
@@ -206,7 +215,14 @@ define(['dragula',"css!/libs/dragula/dragula.min.css","css!/nomui-components/pro
           
                         ]
                       },
-                      defaultRender({itemData})
+                     {
+                       attrs:{
+                         style:{
+                           paddingLeft:'22px'
+                         }
+                       },
+                      children:defaultRender({itemData})
+                     }
                     ]
 
                   }
