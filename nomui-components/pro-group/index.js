@@ -69,49 +69,7 @@ define([
     _config() {
 
 
-      const { data, itemRender } = this.props;
-
-      const defaultRender = itemRender || function ({ itemData }) {
-          return {
-            children: {
-              component: "List",
-              align: "start",
-              gutter: "sm",
-
-              items: [
-                {
-                  component: "Flex",
-                  align: "center",
-                  cols: [
-                    {
-                      component: "Icon",
-                      type: "tasks",
-                      classes: {
-                        "pro-group-event-icon": true,
-                      },
-                    },
-                    { children: itemData.tasks },
-                  ],
-                },
-                {
-                  component: "Flex",
-                  align: "center",
-                  cols: [
-                    {
-                      component: "Icon",
-                      type: "clock",
-                      classes: {
-                        "pro-group-event-icon": true,
-                      },
-                    },
-                    { children: itemData.date },
-                  ],
-                },
-              ],
-            },
-          };
-        };
-
+      const { data } = this.props;
 
 
       this.setProps({
@@ -156,67 +114,118 @@ define([
                     ],
                   },
                 },
-                {
-                  component: "List",
-                  classes: {
-                    "pro-group-box-list": true,
-                  },
-                  cols: 1,
-                  itemRender: ({ itemData }) => {
-                    
-                    return {
-                      component: "Flex",
-                      classes: {
-                        "pro-group-card": true,
-                      },
-                      gap: "small",
-                      rows: [
-                        {
-                          align: "start",
-    
-                          cols: [
-                            {
-                              classes: {
-                                "pro-group-card-line": true,
-                              },
-                            },
-                            {
-                              classes: {
-                                "pro-group-checkbox": true,
-                              },
-                              children: {
-                                component: "Icon",
-                                type: "check",
-                              },
-                            },
-                            {
-                              rows: [
-                                {
-                                  children: itemData.name,
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                        {
-                          attrs: {
-                            style: {
-                              paddingLeft: "22px",
-                            },
-                          },
-                          children: itemData.eventRender?itemData.eventRender({itemData}) :defaultRender({ itemData }),
-                        },
-                      ],
-                    };
-                  },
-                  data: itemData.events,
-                },
+                this._renderEventList(itemData)
               ],
             }
           },
           data:data
         },
       });
+    }
+
+    _renderEventList(itemData) {
+      const { itemRender } = this.props;
+
+      const defaultRender = itemRender || function ({ itemData }) {
+          return {
+            children: {
+              component: "List",
+              align: "start",
+              gutter: "sm",
+
+              items: [
+                {
+                  component: "Flex",
+                  align: "center",
+                  cols: [
+                    {
+                      component: "Icon",
+                      type: "tasks",
+                      classes: {
+                        "pro-group-event-icon": true,
+                      },
+                    },
+                    { children: itemData.tasks },
+                  ],
+                },
+                {
+                  component: "Flex",
+                  align: "center",
+                  cols: [
+                    {
+                      component: "Icon",
+                      type: "clock",
+                      classes: {
+                        "pro-group-event-icon": true,
+                      },
+                    },
+                    { children: itemData.date },
+                  ],
+                },
+              ],
+            },
+          };
+        };
+
+
+      return   {
+        component: "List",
+        classes: {
+          "pro-group-box-list": true,
+        },
+        onCreated:({inst})=>{
+          inst.parent.parent.parent.eventList = inst
+        },
+        cols: 1,
+        itemRender: ({ itemData }) => {
+          
+          return {
+            component: "Flex",
+            classes: {
+              "pro-group-card": true,
+            },
+            gap: "small",
+            rows: [
+              {
+                align: "start",
+
+                cols: [
+                  {
+                    classes: {
+                      "pro-group-card-line": true,
+                    },
+                  },
+                  {
+                    classes: {
+                      "pro-group-checkbox": true,
+                    },
+                    children: {
+                      component: "Icon",
+                      type: "check",
+                    },
+                  },
+                  {
+                    rows: [
+                      {
+                        children: itemData.name,
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                attrs: {
+                  style: {
+                    paddingLeft: "22px",
+                  },
+                },
+                children: itemData.eventRender?itemData.eventRender({itemData}) :defaultRender({ itemData }),
+              },
+            ],
+          };
+        },
+        data: itemData.events,
+      }
     }
 
     _rendered() {
@@ -261,17 +270,24 @@ define([
     }
 
     _onEventDrop(el, target, source, sibling) {
-      this.getData();
+      console.log(this.getData());
     }
 
     getData() {
-      this.mainList
-        .getAllItems()[1]
-        .element.querySelector(".pro-group-box-list")
-        .component.getAllItems();
 
-      const groups = this.mainList.getAllItems();
-      debugger;
+      const data = this.mainList.getAllItems().map(n=>{
+        const {events,...base} = n.props.data
+        const c = n.eventList.getAllItems()
+        base.events = c.map(e=>{
+          return e.props.data
+
+        })
+        return base
+
+      });
+
+      return data
+
     }
 
 
