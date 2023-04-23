@@ -54,6 +54,10 @@
     max-height:  calc( 100% - 30px);
 }
 
+.pro-group-box.pro-group-inputing>.nom-flex-item:nth-child(2) {
+    max-height:  calc( 100% - 120px);
+}
+
 .pro-group-box>.nom-flex-item.strech {
     height:  calc( 100% - 30px);
 }
