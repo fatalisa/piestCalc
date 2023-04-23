@@ -152,18 +152,16 @@ define([
 
                     children: [
                       {
+                        classes: {
+                          'pro-group-event-add-btn': true,
+                        },
                         onCreated: ({ inst }) => {
                           inst.parent.btn = inst
                         },
                         onClick: ({ sender }) => {
-                          sender.hide()
-                          sender.parent.inputPanel.show()
                           sender.parent.parent.parent.element.classList.add(
                             'pro-group-inputing'
                           )
-                        },
-                        classes: {
-                          'pro-group-event-add-btn': true,
                         },
                         children: {
                           component: 'Icon',
@@ -175,7 +173,9 @@ define([
                         onCreated: ({ inst }) => {
                           inst.parent.inputPanel = inst
                         },
-                        hidden: true,
+                        classes:{
+                          'pro-group-event-add-input-panel':true
+                        },
                         rows: [
                           {
                             component: 'MultilineTextbox',
@@ -193,13 +193,6 @@ define([
                                 size:'small',
                                 type: 'primary',
                                 onClick: ({ sender }) => {
-                                  const n = sender.element.closest(
-                                    '.pro-group-event-add'
-                                  ).component
-
-                                  n.btn.show()
-                                  n.inputPanel.hide()
-
                                   sender.element
                                     .closest('.pro-group-inputing')
                                     .classList.remove('pro-group-inputing')
@@ -210,12 +203,6 @@ define([
                                 text: '取消',
                                 size:'small',
                                 onClick: ({ sender }) => {
-                                  const n = sender.element.closest(
-                                    '.pro-group-event-add'
-                                  ).component
-
-                                  n.btn.show()
-                                  n.inputPanel.hide()
                                   sender.element
                                     .closest('.pro-group-inputing')
                                     .classList.remove('pro-group-inputing')

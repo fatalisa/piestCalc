@@ -58,6 +58,14 @@
     max-height:  calc( 100% - 120px);
 }
 
+.pro-group-box.pro-group-inputing .pro-group-event-add-btn {
+    display: none;
+}
+
+.pro-group-box:not(.pro-group-inputing) .pro-group-event-add-input-panel {
+    display: none;
+}
+
 .pro-group-box>.nom-flex-item.strech {
     height:  calc( 100% - 30px);
 }
