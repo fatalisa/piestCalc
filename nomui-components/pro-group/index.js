@@ -155,9 +155,6 @@ define([
                         classes: {
                           'pro-group-event-add-btn': true,
                         },
-                        onCreated: ({ inst }) => {
-                          inst.parent.btn = inst
-                        },
                         onClick: ({ sender }) => {
                           sender.parent.parent.parent.element.classList.add(
                             'pro-group-inputing'
@@ -170,9 +167,6 @@ define([
                       },
                       {
                         component: 'Flex',
-                        onCreated: ({ inst }) => {
-                          inst.parent.inputPanel = inst
-                        },
                         classes:{
                           'pro-group-event-add-input-panel':true
                         },
@@ -180,7 +174,7 @@ define([
                           {
                             component: 'MultilineTextbox',
                             onCreated: ({ inst }) => {
-                              inst.parent.textArea = inst
+                              inst.element.closest('.pro-group-event-add').component.input = inst
                             },
                           },
                           {
