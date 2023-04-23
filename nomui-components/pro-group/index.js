@@ -364,22 +364,22 @@ define([
       })
 
       this.listDrag.on('drop', function (el, target, source, sibling) {
-        me._handleDrop()
+        me._handleEventDrop()
       })
 
       this.listDrag.on('cancel', function (el, container, source	) {
-        me._handleCancel()
+        me._handleEventDrop()
       })
 
 
       this.listDrag.on('drag', function (el, source) {
-        me._handleDrag()
+        me._handleEventDrag()
       })
 
       
     }
 
-    _handleDrop() {
+    _handleEventDrop() {
       this.element.querySelectorAll('.pro-group-event-add').forEach(n=>{
         n.classList.remove('hide')
       })
@@ -391,19 +391,11 @@ define([
       console.log(this.getData())
     }
 
-    _handleCancel() {
-      this.element.querySelectorAll('.pro-group-event-add').forEach(n=>{
-        n.classList.remove('hide')
-      })
+  
 
-      this.element.querySelectorAll('.pro-group-box-list').forEach(n=>{
-        n.closest('.nom-flex-item').classList.remove('strech')
-      })
-      
 
-    }
 
-    _handleDrag() {
+    _handleEventDrag() {
       this.element.querySelectorAll('.pro-group-event-add').forEach(n=>{
         n.classList.add('hide')
       })

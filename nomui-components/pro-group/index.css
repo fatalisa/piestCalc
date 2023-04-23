@@ -8,7 +8,7 @@
     height: 100%;
 }
 
-.nom-pro-group .pro-group-box-list {
+.pro-group-box .pro-group-box-list {
     height: 100%;
     padding-right: .5rem;
     overflow-y: auto;
@@ -18,18 +18,18 @@
     height:100%;
     align-content: flex-start;
 }
-.nom-pro-group .pro-group-box {
+.pro-group-box {
     width:260px;
     height: 100%;
     padding:.5rem;
 }
 
-.nom-pro-group .pro-group-box .pro-group-event-add {
+.pro-group-box .pro-group-event-add {
     padding-right: .5rem;
    
 }
 
-.nom-pro-group .pro-group-box .pro-group-event-add >.pro-group-event-add-btn {
+.pro-group-box .pro-group-event-add >.pro-group-event-add-btn {
     text-align: center;
     font-size: 1.25rem;
     padding: .15rem;
@@ -46,15 +46,15 @@
 
 
 
-.nom-pro-group .pro-group-box .pro-group-event-add >.pro-group-event-add-btn:hover {
+.pro-group-box .pro-group-event-add >.pro-group-event-add-btn:hover {
     background: var(--nom-color-fill-3);
 }
 
-.nom-pro-group .pro-group-box>.nom-flex-item:nth-child(2) {
+.pro-group-box>.nom-flex-item:nth-child(2) {
     max-height:  calc( 100% - 30px);
 }
 
-.nom-pro-group .pro-group-box>.nom-flex-item.strech {
+.pro-group-box>.nom-flex-item.strech {
     height:  calc( 100% - 30px);
 }
 
