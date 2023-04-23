@@ -367,6 +367,11 @@ define([
         me._handleDrop()
       })
 
+      this.listDrag.on('cancel', function (el, container, source	) {
+        me._handleCancel()
+      })
+
+
       this.listDrag.on('drag', function (el, source) {
         me._handleDrag()
       })
@@ -384,6 +389,18 @@ define([
       })
       
       console.log(this.getData())
+    }
+
+    _handleCancel() {
+      this.element.querySelectorAll('.pro-group-event-add').forEach(n=>{
+        n.classList.remove('hide')
+      })
+
+      this.element.querySelectorAll('.pro-group-box-list').forEach(n=>{
+        n.closest('.nom-flex-item').classList.remove('strech')
+      })
+      
+
     }
 
     _handleDrag() {
