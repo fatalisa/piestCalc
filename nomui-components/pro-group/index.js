@@ -149,15 +149,66 @@ define([
                     classes:{
                       'pro-group-event-add':true
                     },
-                    children:{
-                      classes:{
-                        'pro-group-event-add-btn':true
+                  
+                    children:[
+                      {
+                        onCreated:({inst})=>{
+                          inst.parent.btn = inst
+                        },
+                        onClick:({sender})=>{
+                          sender.hide()
+                          sender.parent.inputPanel.show()
+                        },
+                        classes:{
+                          'pro-group-event-add-btn':true
+                        },
+                        children:{
+                          component:'Icon',
+                           type:'plus'
+                        }
                       },
-                      children:{
-                        component:'Icon',
-                         type:'plus'
+                      {
+                       
+                        component:'Flex',
+                        onCreated:({inst})=>{
+                          inst.parent.inputPanel = inst
+                        },
+                        hidden:true,
+                        rows:[
+                          {
+                            component:'MultilineTextbox',
+                            onCreated:({inst})=>{
+                              inst.parent.textArea = inst
+                            },
+
+                          },
+                          {
+                            cols:[
+                              {
+                                component:'Button',
+                                text:'确定',
+                                type:'primary',
+                                onClick:({sender})=>{
+                                  
+                                  sender.parent.parent.parent.parent.parent.btn.show()
+                                  sender.parent.parent.parent.parent.parent.inputPanel.hide()
+                                },
+                              },
+                              {
+                                component:'Button',
+                                text:'取消',
+                                onClick:({sender})=>{
+                                  sender.parent.parent.parent.parent.parent.btn.show()
+                                  sender.parent.parent.parent.parent.parent.inputPanel.hide()
+                         
+                       
+                                },
+                              }
+                            ]
+                          }
+                        ]
                       }
-                    }
+                    ]
                   }
                 }
               ],
