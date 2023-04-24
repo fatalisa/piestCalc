@@ -174,7 +174,7 @@ define([
                           {
                             component: 'MultilineTextbox',
                             onCreated: ({ inst }) => {
-                              inst.element.closest('.pro-group-event-add').component.input = inst
+                             inst.parent.input = inst
                             },
                           },
                           {

@@ -51,7 +51,7 @@
 }
 
 .pro-group-box>.nom-flex-item:nth-child(2) {
-    max-height:  calc( 100% - 30px);
+    max-height:  calc( 100% - 55px);
 }
 
 .pro-group-box.pro-group-inputing>.nom-flex-item:nth-child(2) {
@@ -67,7 +67,7 @@
 }
 
 .pro-group-box>.nom-flex-item.strech {
-    height:  calc( 100% - 30px);
+    height:  calc( 100% - 55px);
 }
 
 .nom-pro-group .pro-group-title-count {
