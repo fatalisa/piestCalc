@@ -21,7 +21,7 @@ define([
                 id: '00101',
                 name: 'app原型设计',
                 status: 'warning',
-                checked: false,
+                checked: true,
                 disabled: false,
                 date: '2023-01-05',
                 tasks: 3,
@@ -321,8 +321,8 @@ define([
                       'pro-group-checkbox': true,
                     },
                     children: {
-                      component: 'Icon',
-                      type: 'check',
+                      component: 'Checkbox',
+                      value:itemData.checked
                     },
                   },
                   {
@@ -422,7 +422,7 @@ define([
     }
 
     _onEventClick (args) {
-      debugger
+      
     }
 
     getData() {
