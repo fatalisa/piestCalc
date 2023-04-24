@@ -381,8 +381,10 @@ define([
     }
 
     _initDragable() {
-      const me = this
+      this.boxDrag && this.boxDrag.destroy()
+      this.listDrag && this.listDrag.destroy()
 
+      const me = this
       const listArr = []
 
       const boxArr = [this.element.querySelector('.pro-group-main ul')]
@@ -437,17 +439,9 @@ define([
         return
       }
 
-      // const k = el.component.key
+ 
 
-      const s =  source.closest('.nom-list').component
-      const sData = this._getListData(s)
 
-      const t =  target.closest('.nom-list').component
-      const tData = this._getListData(t)
-      s.update({data:sData})
-      t.update({data:tData})
-
-      this._initDragable()
     
       console.log(this.getData())
     }
@@ -474,11 +468,26 @@ define([
         events:[]
       })
 
+      this._fixList()
+
 
 
       this.update({
         data:d
       })
+    }
+
+    _fixList() {
+      const list = this.mainList.getAllItems().filter(n=>{return n.props.data.isCreateBtn!==true})
+      list.forEach(n=>{
+        const e = n.eventList
+        const data = this._getListData(e)
+        e.update({
+          data:data
+        })
+
+      })
+      this._initDragable()
     }
 
     _getListData(target) {
