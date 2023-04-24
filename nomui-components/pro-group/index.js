@@ -98,7 +98,7 @@ define([
     }
 
     _config() {
-    
+      const me = this
       const { data } = this.props
 
       this.setProps({
@@ -126,7 +126,10 @@ define([
                   {
                     children:'新增列表'
                   }
-                ]
+                ],
+                onClick:()=>{
+                  me._appendList()
+                }
               }
             }
             return {
@@ -255,7 +258,6 @@ define([
           data: [...data,{
             isCreateBtn:true
           }],
-          // data:data
         },
       })
     }
@@ -410,11 +412,11 @@ define([
       })
 
       this.listDrag.on('drop', function (el, target, source, sibling) {
-        me._handleEventDrop()
+        me._handleEventDrop({el, target, source, sibling})
       })
 
       this.listDrag.on('cancel', function (el, container, source) {
-        me._handleEventDrop()
+        me._handleEventDrop({isCancel:true})
       })
 
       this.listDrag.on('drag', function (el, source) {
@@ -422,7 +424,7 @@ define([
       })
     }
 
-    _handleEventDrop() {
+    _handleEventDrop({el, target, source, sibling,isCancel}) {
       this.element.querySelectorAll('.pro-group-event-add').forEach((n) => {
         n.classList.remove('hide')
       })
@@ -431,6 +433,22 @@ define([
         n.closest('.nom-flex-item').classList.remove('strech')
       })
 
+      if (isCancel) {
+        return
+      }
+
+      // const k = el.component.key
+
+      const s =  source.closest('.nom-list').component
+      const sData = this._getListData(s)
+
+      const t =  target.closest('.nom-list').component
+      const tData = this._getListData(t)
+      s.update({data:sData})
+      t.update({data:tData})
+
+      this._initDragable()
+    
       console.log(this.getData())
     }
 
@@ -448,6 +466,28 @@ define([
       
     }
 
+    _appendList() {
+      const d = this.getData()
+      d.push({
+        id: nomui.utils.newGuid(),
+        name: '新列表',
+        events:[]
+      })
+
+
+
+      this.update({
+        data:d
+      })
+    }
+
+    _getListData(target) {
+      const data = target.getAllItems().map((n) => {
+        return n.props.data
+      })
+      return data
+    }
+
     getData() {
       const data = this.mainList.getAllItems().filter(n=>{return n.props.data.isCreateBtn!==true}).map((n) => {
         const { events, ...base } = n.props.data
@@ -461,7 +501,7 @@ define([
       return data
     }
 
-    
+
   }
 
   return ProGroup
