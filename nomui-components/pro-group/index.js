@@ -98,7 +98,7 @@ define([
     }
 
     _config() {
-      const me = this
+    
       const { data } = this.props
 
       this.setProps({
@@ -110,7 +110,7 @@ define([
           classes: {
             'pro-group-main': true,
           },
-          itemRender: ({ itemData }) => {
+          itemRender: ({ itemData,item }) => {
             return {
               component: 'Flex',
               classes: {
@@ -143,7 +143,7 @@ define([
                     ],
                   },
                 },
-                this._renderEventList(itemData),
+                this._renderEventList(itemData,item),
                 {
                   children: {
                     classes: {
@@ -175,7 +175,7 @@ define([
                             component: 'MultilineTextbox',
                             onCreated: ({ inst }) => {
                               
-                             inst.parent.parent.input = inst
+                              item.input = inst
                             },
                           },
                           {
@@ -188,12 +188,13 @@ define([
                                 size:'small',
                                 type: 'primary',
                                 onClick: ({ sender }) => {
+                                  const input = item.input
+                                  const val = input.getValue()
+                                  const list = item.eventList
                                   
-                                  const v = sender.element.closest('.pro-group-event-add-input-panel').component.input.getValue()
-                                  const l = sender.element.closest('.pro-group-box').querySelector('.pro-group-box-list').component
-                                  l.appendDataItem({
+                                  list.appendDataItem({
                                     id: nomui.utils.newGuid(),
-                                    name: v,
+                                    name: val,
                                     status: null,
                                     checked: false,
                                     disabled: false,
@@ -201,6 +202,7 @@ define([
                                     tasks: 0,
                                     eventRender: null,
                                   })
+                                  input.clear()
                                   
 
 
@@ -229,12 +231,15 @@ define([
               ],
             }
           },
-          data: data,
+          data: [...data,{
+            createBtn:true
+          }],
         },
       })
     }
 
-    _renderEventList(itemData) {
+    _renderEventList(itemData,item) {
+        const me = this
       const { itemRender } = this.props
 
       const defaultRender =
@@ -245,6 +250,7 @@ define([
               component: 'List',
               align: 'start',
               gutter: 'sm',
+      
 
               items: [
                !!itemData.tasks && {
@@ -287,7 +293,7 @@ define([
         },
 
         onCreated: ({ inst }) => {
-          inst.parent.parent.parent.eventList = inst
+          item.eventList = inst
         },
         cols: 1,
         itemRender: ({ itemData }) => {
@@ -297,6 +303,9 @@ define([
               'pro-group-card': true,
             },
             gap: 'small',
+            onClick:()=>{
+              me._onEventClick({itemData})
+            },
             rows: [
               {
                 align: 'start',
@@ -412,8 +421,13 @@ define([
       })
     }
 
+    _onEventClick (args) {
+      debugger
+    }
+
     getData() {
       const data = this.mainList.getAllItems().map((n) => {
+        
         const { events, ...base } = n.props.data
         const c = n.eventList.getAllItems()
         base.events = c.map((e) => {
