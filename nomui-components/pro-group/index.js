@@ -54,7 +54,7 @@ define([
                 status: null,
                 checked: false,
                 disabled: false,
-                date: '2023-01-09',
+                date: null,
                 tasks: 1,
                 eventRender: null,
               },
@@ -174,7 +174,8 @@ define([
                           {
                             component: 'MultilineTextbox',
                             onCreated: ({ inst }) => {
-                             inst.parent.input = inst
+                              
+                             inst.parent.parent.input = inst
                             },
                           },
                           {
@@ -187,6 +188,22 @@ define([
                                 size:'small',
                                 type: 'primary',
                                 onClick: ({ sender }) => {
+                                  
+                                  const v = sender.element.closest('.pro-group-event-add-input-panel').component.input.getValue()
+                                  const l = sender.element.closest('.pro-group-box').querySelector('.pro-group-box-list').component
+                                  l.appendDataItem({
+                                    id: nomui.utils.newGuid(),
+                                    name: v,
+                                    status: null,
+                                    checked: false,
+                                    disabled: false,
+                                    date: null,
+                                    tasks: 0,
+                                    eventRender: null,
+                                  })
+                                  
+
+
                                   sender.element
                                     .closest('.pro-group-inputing')
                                     .classList.remove('pro-group-inputing')
@@ -230,7 +247,7 @@ define([
               gutter: 'sm',
 
               items: [
-                {
+               !!itemData.tasks && {
                   component: 'Flex',
                   align: 'center',
                   cols: [
@@ -244,7 +261,7 @@ define([
                     { children: itemData.tasks },
                   ],
                 },
-                {
+                !!itemData.date && {
                   component: 'Flex',
                   align: 'center',
                   cols: [
@@ -287,7 +304,7 @@ define([
                 cols: [
                   {
                     classes: {
-                      'pro-group-card-line': true,
+                      'pro-group-card-status-line': true,
                     },
                   },
                   {
