@@ -111,6 +111,24 @@ define([
             'pro-group-main': true,
           },
           itemRender: ({ itemData,item }) => {
+            if (itemData.isCreateBtn) {
+              return {
+                component:'Flex',
+                classes:{
+                  'pro-group-list-add':true
+                },
+                align:'center',
+                cols:[
+                  {
+                    component:'Icon',
+                    type:'plus'
+                  },
+                  {
+                    children:'新增列表'
+                  }
+                ]
+              }
+            }
             return {
               component: 'Flex',
               classes: {
@@ -216,6 +234,9 @@ define([
                                 text: '取消',
                                 size:'small',
                                 onClick: ({ sender }) => {
+                                  item.input.clear()
+                                
+                                  
                                   sender.element
                                     .closest('.pro-group-inputing')
                                     .classList.remove('pro-group-inputing')
@@ -232,8 +253,9 @@ define([
             }
           },
           data: [...data,{
-            createBtn:true
+            isCreateBtn:true
           }],
+          // data:data
         },
       })
     }
@@ -293,6 +315,7 @@ define([
         },
 
         onCreated: ({ inst }) => {
+
           item.eventList = inst
         },
         cols: 1,
@@ -426,8 +449,7 @@ define([
     }
 
     getData() {
-      const data = this.mainList.getAllItems().map((n) => {
-        
+      const data = this.mainList.getAllItems().filter(n=>{return n.props.data.isCreateBtn!==true}).map((n) => {
         const { events, ...base } = n.props.data
         const c = n.eventList.getAllItems()
         base.events = c.map((e) => {
@@ -438,6 +460,8 @@ define([
 
       return data
     }
+
+    
   }
 
   return ProGroup
