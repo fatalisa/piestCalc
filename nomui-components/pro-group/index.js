@@ -211,6 +211,9 @@ define([
                                 onClick: ({ sender }) => {
                                   const input = item.input
                                   const val = input.getValue()
+                                  if (val && val.length) {
+                                    
+                                
                                   const list = item.eventList
                                   
                                   list.appendDataItem({
@@ -224,7 +227,7 @@ define([
                                     eventRender: null,
                                   })
                                   input.clear()
-                                  
+                                }
 
 
                                   sender.element
@@ -457,13 +460,11 @@ define([
     }
 
     _onEventClick ({item,itemData}) {
-      const r = this._callHandler(this.props.onEventClick,{item,itemData})
-      if (r!== undefined) {
-
+       this._callHandler(this.props.onEventClick,{item,itemData,setData:function(result) {
         item.update({
-          data:r
+          data:result
         })
-      }
+      }})
     }
 
     _appendList() {
