@@ -180,6 +180,7 @@ define([
                           sender.parent.parent.parent.element.classList.add(
                             'pro-group-inputing'
                           )
+                          item.input.focus()
                         },
                         children: {
                           component: 'Icon',
@@ -195,7 +196,6 @@ define([
                           {
                             component: 'MultilineTextbox',
                             onCreated: ({ inst }) => {
-                              
                               item.input = inst
                             },
                           },
