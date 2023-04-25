@@ -262,7 +262,7 @@ define([
       })
     }
 
-    _renderEventList(itemData,item) {
+    _renderEventList(itemData,listItem) {
         const me = this
       const { itemRender } = this.props
 
@@ -317,11 +317,11 @@ define([
         },
 
         onCreated: ({ inst }) => {
-
-          item.eventList = inst
+          listItem.eventList = inst
         },
         cols: 1,
-        itemRender: ({ itemData }) => {
+        itemRender: ({ itemData ,item}) => {
+          
           return {
             component: 'Flex',
             classes: {
@@ -329,7 +329,7 @@ define([
             },
             gap: 'small',
             onClick:()=>{
-              me._onEventClick({itemData})
+              me._onEventClick({item,itemData})
             },
             rows: [
               {
@@ -456,8 +456,14 @@ define([
       })
     }
 
-    _onEventClick (args) {
-      
+    _onEventClick ({item,itemData}) {
+      const r = this._callHandler(this.props.onEventClick,{item,itemData})
+      if (r!== undefined) {
+
+        item.update({
+          data:r
+        })
+      }
     }
 
     _appendList() {

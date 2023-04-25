@@ -36,7 +36,10 @@ define(['nomui-components/pro-group/index.js','css!page/style.css'], function (P
 
       body: {
         children: {
-          component:ProGroup
+          component:ProGroup,
+          onEventClick:(args)=>{
+            return Object.assign(args.itemData,{name:'一个新名字'})
+          }
         }
       },
 
