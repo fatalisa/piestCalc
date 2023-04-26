@@ -325,7 +325,7 @@ define([
         itemRender: ({ itemData, item }) => {
           const tools = eventToolRender
             ? eventToolRender({ item, itemData })
-            : null
+            : []
 
           return {
             component: 'Flex',
@@ -351,6 +351,9 @@ define([
                     children: {
                       component: 'Checkbox',
                       value: itemData.checked,
+                      onValueChange:({newValue})=>{
+                        item.update({data:{checked:newValue}})
+                      }
                     },
                   },
                   {
@@ -372,14 +375,22 @@ define([
                       ],
                     },
                   },
-                  tools &&
-                    tools.length && {
+                  {
+                    classes:{
+                      'pro-group-event-tools':true
+
+                    },
                       children: {
                         component: 'Dropdown',
                         rightIcon: 'ellipsis',
                         type: 'text',
                         size: 'small',
-                        items: tools,
+                        items: [...tools,{
+                          text:'删除',
+                          onClick:()=>{
+                            me._removeEvent(item)
+                          }
+                        }],
                       },
                     },
                 ],

@@ -88,6 +88,7 @@
 }
 
 
+
 .pro-group-card {
     position: relative;
     padding:.75rem;
@@ -107,10 +108,25 @@
     border-radius: 4px 0 0 4px;
 }
 
+.pro-group-box .nom-list-item.s-disabled >.pro-group-card {
+    opacity: .75;
+    filter: grayscale(.75);
+    color: var(--nom-color-text-2);
+}
+
 .pro-group-card  .pro-group-event-icon {
     color:var(--nom-color-text-3);
     margin-right: .25rem;
 }
+
+.pro-group-card .pro-group-event-tools {
+    visibility: hidden;
+}
+
+.pro-group-card:hover .pro-group-event-tools {
+    visibility: visible;
+}
+
 
 .pro-group-checkbox {
     margin-right: .25rem;

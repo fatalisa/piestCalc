@@ -38,7 +38,18 @@ define(['nomui-components/pro-group/index.js','css!page/style.css'], function (P
         children: {
           component:ProGroup,
           eventToolRender:({item,itemData})=>{
-            
+            return [
+              {
+                text:'禁用',
+                onClick:()=>{
+                  item.disable()
+                  item.update({data:{
+                    disabled:true
+                  }})
+                }
+              }
+            ]
+
           },
           onEventClick:({item,itemData,setData,removeEvent})=>{
             // 可以直接对sender,item进行操作，也可以使用setData函数对组件进行更新,使用removeEvent()删除任务
