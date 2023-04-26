@@ -60,11 +60,11 @@
 }
 
 .pro-group-box>.nom-flex-item:nth-child(2) {
-    max-height:  calc( 100% - 55px);
+    max-height:  calc( 100% - 65px);
 }
 
 .pro-group-box.pro-group-inputing>.nom-flex-item:nth-child(2) {
-    max-height:  calc( 100% - 120px);
+    max-height:  calc( 100% - 130px);
 }
 
 .pro-group-box.pro-group-inputing .pro-group-event-add-btn {

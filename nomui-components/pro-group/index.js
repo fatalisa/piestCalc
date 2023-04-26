@@ -91,7 +91,8 @@ define([
         onEventDelete: null,
         onEventClick: null,
         onEventDrop: null,
-        listTitleRender: null,
+        groupTitleRender: null,
+        groupToolRender:null,
         eventRender: null,
         eventToolRende:null,
         onChange:null,
@@ -134,6 +135,9 @@ define([
                 },
               }
             }
+
+            const {groupToolRender} = me.props
+            const tools = groupToolRender?groupToolRender({item,itemData}):[]
             return {
               component: 'Flex',
               classes: {
@@ -152,20 +156,66 @@ define([
                         padding: '0 .25rem .5rem .25rem',
                       },
                     },
+                    align:'center',
                     cols: [
                       {
                         children: itemData.name,
                       },
                       {
-                        classes: {
-                          'pro-group-title-count': true,
-                        },
-                        onCreated:({inst})=>{
-                          item.eventCount = inst
-                        },
-                        children:
-                          (itemData.events && itemData.events.length) || 0,
+                        grow:true,
+                        children:{
+                          classes: {
+                            'pro-group-title-count': true,
+                          },
+                          onCreated:({inst})=>{
+                            item.eventCount = inst
+                          },
+                          children:
+                            (itemData.events && itemData.events.length) || 0,
+                        }
                       },
+                      {
+                        children:{
+                          component:'Dropdown',
+                          rightIcon:'ellipsis',
+                          type:'text',
+                          inline:true,
+                          items:[
+                            {
+                              text:'重命名',
+                              onClick:()=>{
+                                let inputRef = null
+                                new nomui.Modal({
+                                  content: {
+                                   
+                                    body: {
+                                      children:{
+                                        component:'Textbox',
+                                        placeholder:'请输入',
+                                        value:itemData.name,
+                                        ref:(c)=>{
+                                          inputRef = c
+                                        }
+                                      }
+                                    },
+                                  },
+                                  onOk: ({ sender }) => {
+
+                                    const currentData = me.getData().filter(n=>{return n.id === itemData.id})[0]
+
+                                   
+                                    const newData = Object.assign(currentData,{name:inputRef.getValue()})
+                                    item.update({data:newData})
+                                    me._fixList()
+                                    sender.close()
+                                  },
+                                })
+                              }
+                            },
+                            ...tools
+                          ]
+                        }
+                      }
                     ],
                   },
                 },
