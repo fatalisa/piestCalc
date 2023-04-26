@@ -90,9 +90,10 @@ define([
         onEventCreate: null,
         onEventDelete: null,
         onEventClick: null,
-        onEventDrag: null,
-        titleRender: null,
+        onEventDrop: null,
+        listTitleRender: null,
         eventRender: null,
+        eventToolRende:null,
       }
       super(nomui.Component.extendProps(defaults, props), ...mixins)
     }
@@ -110,26 +111,26 @@ define([
           classes: {
             'pro-group-main': true,
           },
-          itemRender: ({ itemData,item }) => {
+          itemRender: ({ itemData, item }) => {
             if (itemData.isCreateBtn) {
               return {
-                component:'Flex',
-                classes:{
-                  'pro-group-list-add':true
+                component: 'Flex',
+                classes: {
+                  'pro-group-list-add': true,
                 },
-                align:'center',
-                cols:[
+                align: 'center',
+                cols: [
                   {
-                    component:'Icon',
-                    type:'plus'
+                    component: 'Icon',
+                    type: 'plus',
                   },
                   {
-                    children:'新增列表'
-                  }
+                    children: '新增列表',
+                  },
                 ],
-                onClick:()=>{
+                onClick: () => {
                   me._appendList()
-                }
+                },
               }
             }
             return {
@@ -164,7 +165,7 @@ define([
                     ],
                   },
                 },
-                this._renderEventList(itemData,item),
+                this._renderEventList(itemData, item),
                 {
                   children: {
                     classes: {
@@ -189,8 +190,8 @@ define([
                       },
                       {
                         component: 'Flex',
-                        classes:{
-                          'pro-group-event-add-input-panel':true
+                        classes: {
+                          'pro-group-event-add-input-panel': true,
                         },
                         rows: [
                           {
@@ -200,35 +201,32 @@ define([
                             },
                           },
                           {
-                            gutter:'small',
-                            justify:'end',
+                            gutter: 'small',
+                            justify: 'end',
                             cols: [
                               {
                                 component: 'Button',
                                 text: '确定',
-                                size:'small',
+                                size: 'small',
                                 type: 'primary',
                                 onClick: ({ sender }) => {
                                   const input = item.input
                                   const val = input.getValue()
                                   if (val && val.length) {
-                                    
-                                
-                                  const list = item.eventList
-                                  
-                                  list.appendDataItem({
-                                    id: nomui.utils.newGuid(),
-                                    name: val,
-                                    status: null,
-                                    checked: false,
-                                    disabled: false,
-                                    date: null,
-                                    tasks: 0,
-                                    eventRender: null,
-                                  })
-                                  input.clear()
-                                }
+                                    const list = item.eventList
 
+                                    list.appendDataItem({
+                                      id: nomui.utils.newGuid(),
+                                      name: val,
+                                      status: null,
+                                      checked: false,
+                                      disabled: false,
+                                      date: null,
+                                      tasks: 0,
+                                      eventRender: null,
+                                    })
+                                    input.clear()
+                                  }
 
                                   sender.element
                                     .closest('.pro-group-inputing')
@@ -238,11 +236,10 @@ define([
                               {
                                 component: 'Button',
                                 text: '取消',
-                                size:'small',
+                                size: 'small',
                                 onClick: ({ sender }) => {
                                   item.input.clear()
-                                
-                                  
+
                                   sender.element
                                     .closest('.pro-group-inputing')
                                     .classList.remove('pro-group-inputing')
@@ -258,29 +255,31 @@ define([
               ],
             }
           },
-          data: [...data,{
-            isCreateBtn:true
-          }],
+          data: [
+            ...data,
+            {
+              isCreateBtn: true,
+            },
+          ],
         },
       })
     }
 
-    _renderEventList(itemData,listItem) {
-        const me = this
-      const { itemRender } = this.props
+    _renderEventList(itemData, listItem) {
+      const me = this
+      const { eventRender, eventToolRender } = this.props
 
       const defaultRender =
-        itemRender ||
+      eventRender ||
         function ({ itemData }) {
           return {
             children: {
               component: 'List',
               align: 'start',
               gutter: 'sm',
-      
 
               items: [
-               !!itemData.tasks && {
+                !!itemData.tasks && {
                   component: 'Flex',
                   align: 'center',
                   cols: [
@@ -323,17 +322,18 @@ define([
           listItem.eventList = inst
         },
         cols: 1,
-        itemRender: ({ itemData ,item}) => {
-          
+        itemRender: ({ itemData, item }) => {
+          const tools = eventToolRender
+            ? eventToolRender({ item, itemData })
+            : null
+
           return {
             component: 'Flex',
             classes: {
               'pro-group-card': true,
             },
             gap: 'small',
-            onClick:()=>{
-              me._onEventClick({item,itemData})
-            },
+
             rows: [
               {
                 align: 'start',
@@ -350,23 +350,49 @@ define([
                     },
                     children: {
                       component: 'Checkbox',
-                      value:itemData.checked
+                      value: itemData.checked,
                     },
                   },
                   {
-                    rows: [
-                      {
-                        children: itemData.name,
+                    attrs: {
+                      style: {
+                        cursor: 'pointer',
                       },
-                    ],
+                    },
+                    grow: true,
+                    onClick: () => {
+                      me._onEventClick({ item, itemData })
+                    },
+                    children: {
+                      component: 'Flex',
+                      rows: [
+                        {
+                          children: itemData.name,
+                        },
+                      ],
+                    },
                   },
+                  tools &&
+                    tools.length && {
+                      children: {
+                        component: 'Dropdown',
+                        rightIcon: 'ellipsis',
+                        type: 'text',
+                        size: 'small',
+                        items: tools,
+                      },
+                    },
                 ],
               },
               {
                 attrs: {
                   style: {
                     paddingLeft: '22px',
+                    cursor: 'pointer',
                   },
+                },
+                onClick: () => {
+                  me._onEventClick({ item, itemData })
                 },
                 children: itemData.eventRender
                   ? itemData.eventRender({ itemData })
@@ -417,11 +443,11 @@ define([
       })
 
       this.listDrag.on('drop', function (el, target, source, sibling) {
-        me._handleEventDrop({el, target, source, sibling})
+        me._handleEventDrop({ el, target, source, sibling })
       })
 
       this.listDrag.on('cancel', function (el, container, source) {
-        me._handleEventDrop({isCancel:true})
+        me._handleEventDrop({ isCancel: true })
       })
 
       this.listDrag.on('drag', function (el, source) {
@@ -429,7 +455,7 @@ define([
       })
     }
 
-    _handleEventDrop({el, target, source, sibling,isCancel}) {
+    _handleEventDrop({ el, target, source, sibling, isCancel }) {
       this.element.querySelectorAll('.pro-group-event-add').forEach((n) => {
         n.classList.remove('hide')
       })
@@ -442,10 +468,6 @@ define([
         return
       }
 
- 
-
-
-    
       console.log(this.getData())
     }
 
@@ -459,12 +481,23 @@ define([
       })
     }
 
-    _onEventClick ({item,itemData}) {
-       this._callHandler(this.props.onEventClick,{item,itemData,setData:function(result) {
-        item.update({
-          data:result
-        })
-      }})
+    _onEventClick({ item, itemData }) {
+      this._callHandler(this.props.onEventClick, {
+        item,
+        itemData,
+        setData: function (result) {
+          item.update({
+            data: result,
+          })
+        },
+        removeEvent: () => {
+          this._removeEvent(item)
+        },
+      })
+    }
+
+    _removeEvent(item) {
+      item.remove()
     }
 
     _appendList() {
@@ -472,27 +505,26 @@ define([
       d.push({
         id: nomui.utils.newGuid(),
         name: '新列表',
-        events:[]
+        events: [],
       })
 
       this._fixList()
 
-
-
       this.update({
-        data:d
+        data: d,
       })
     }
 
     _fixList() {
-      const list = this.mainList.getAllItems().filter(n=>{return n.props.data.isCreateBtn!==true})
-      list.forEach(n=>{
+      const list = this.mainList.getAllItems().filter((n) => {
+        return n.props.data.isCreateBtn !== true
+      })
+      list.forEach((n) => {
         const e = n.eventList
         const data = this._getListData(e)
         e.update({
-          data:data
+          data: data,
         })
-
       })
       this._initDragable()
     }
@@ -505,19 +537,22 @@ define([
     }
 
     getData() {
-      const data = this.mainList.getAllItems().filter(n=>{return n.props.data.isCreateBtn!==true}).map((n) => {
-        const { events, ...base } = n.props.data
-        const c = n.eventList.getAllItems()
-        base.events = c.map((e) => {
-          return e.props.data
+      const data = this.mainList
+        .getAllItems()
+        .filter((n) => {
+          return n.props.data.isCreateBtn !== true
         })
-        return base
-      })
+        .map((n) => {
+          const { events, ...base } = n.props.data
+          const c = n.eventList.getAllItems()
+          base.events = c.map((e) => {
+            return e.props.data
+          })
+          return base
+        })
 
       return data
     }
-
-
   }
 
   return ProGroup

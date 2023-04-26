@@ -37,9 +37,11 @@ define(['nomui-components/pro-group/index.js','css!page/style.css'], function (P
       body: {
         children: {
           component:ProGroup,
-          onEventClick:({item,itemData,setData})=>{
-            // 可以直接对sender,item进行操作，也可以使用setData函数对组件进行更新
+          eventToolRender:({item,itemData})=>{
             
+          },
+          onEventClick:({item,itemData,setData,removeEvent})=>{
+            // 可以直接对sender,item进行操作，也可以使用setData函数对组件进行更新,使用removeEvent()删除任务
             let textRef = null
             new nomui.Modal({
               content: {
@@ -62,7 +64,7 @@ define(['nomui-components/pro-group/index.js','css!page/style.css'], function (P
               onOk: ({ sender }) => {
                
                 const newData = Object.assign(itemData,{name:textRef.getValue()})
-                setData(newData)
+                setData(newData) // 更新数据
                 sender.close()
               },
             })
