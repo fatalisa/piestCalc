@@ -2,31 +2,9 @@ define(['nomui-components/pro-group/index.js','css!page/style.css'], function (P
   
  
 
+  let groupRef = null
 
 
-  asyncDeleteUser =()=>{
-    new Promise((resolve)=>{
-      resolve({
-       
-        success:false
-      })
-    }).then(res=>{
-      
-      if(res.success) {
-        new nomui.Alert({
-          title: '删除成功',
-        })
-      }
-      else {
-        new nomui.Alert({
-          title: '操作失败',
-        })
-      }
-     
-    })
-
-
-  }
 
 
   
@@ -37,18 +15,45 @@ define(['nomui-components/pro-group/index.js','css!page/style.css'], function (P
       body: {
         children: {
           component:'Layout',
+             
+          header:{
+          
+            children:{
+              component:'Button',
+              text:'getData',
+              onClick:()=>{
+                new nomui.Alert({
+                  title:'当前数据为',
+                  description:JSON.stringify(groupRef.getData())
+                })
+              }
+            }
+       
+        },
+
           body:{
             children: {
               component:ProGroup,
+              ref:(c)=>{
+                groupRef = c
+              },
               eventToolRender:({item,itemData})=>{
                 return [
                   {
-                    text:'禁用',
+                    text:itemData.disabled?'启用':'禁用',
                     onClick:()=>{
-                      item.disable()
-                      item.update({data:{
-                        disabled:true
-                      }})
+                      if (itemData.disabled) {
+                        item.enable()
+                        item.update({data:{
+                          disabled:false
+                        }})
+                      }
+                      else {
+                        item.disable()
+                        item.update({data:{
+                          disabled:true
+                        }})
+                      }
                     }
                   }
                 ]
@@ -92,19 +97,14 @@ define(['nomui-components/pro-group/index.js','css!page/style.css'], function (P
               },
               onEventDelete:(args)=>{
                 console.log(args)
+              },
+              onChange:(args)=>{
+                console.log(args)
               }
     
             }
           },
-         
-          header:{
-          
-              children:{
-                component:'Button',
-                text:'getData'
-              }
-         
-          }
+      
         }
       },
 

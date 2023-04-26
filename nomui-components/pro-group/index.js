@@ -94,6 +94,7 @@ define([
         listTitleRender: null,
         eventRender: null,
         eventToolRende:null,
+        onChange:null,
       }
       super(nomui.Component.extendProps(defaults, props), ...mixins)
     }
@@ -482,6 +483,7 @@ define([
       }
 
       this.props.onEventDrop && this._callHandler(this.props.onEventDrop)
+      this._handleChange()
 
 
     }
@@ -498,10 +500,11 @@ define([
 
     _handleEventCreate(data) {
       this.props.onEventCreate && this._callHandler(this.props.onEventCreate,{itemData:data})
+      this._handleChange()
     }
 
     _onEventClick({ item, itemData }) {
-      this._callHandler(this.props.onEventClick, {
+      this.props.onEventClick && this._callHandler(this.props.onEventClick, {
         item,
         itemData,
         setData: function (result) {
@@ -513,11 +516,17 @@ define([
           this._removeEvent({item,itemData})
         },
       })
+      this._handleChange()
     }
 
     _removeEvent({item,itemData}) {
       item.remove()
       this.props.onEventDelete && this._callHandler(this.props.onEventDelete,{itemData})
+      this._handleChange()
+    }
+
+    _handleChange() {
+      this.props.onChange && this._callHandler(this.props.onChange,{data:this.getData()})
     }
 
     _appendList() {
@@ -533,6 +542,7 @@ define([
       this.update({
         data: d,
       })
+      this._handleChange()
     }
 
     _fixList() {
