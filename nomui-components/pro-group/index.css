@@ -8,6 +8,15 @@
     height: 100%;
 }
 
+.pro-group-main {
+    overflow-x: auto !important;
+}
+
+.pro-group-main>ul {
+    flex-wrap: nowrap !important;
+    width:max-content;
+}
+
 .pro-group-box .pro-group-box-list {
     height: 100%;
     padding-right: .5rem;
