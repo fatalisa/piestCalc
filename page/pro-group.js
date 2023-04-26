@@ -36,61 +36,75 @@ define(['nomui-components/pro-group/index.js','css!page/style.css'], function (P
 
       body: {
         children: {
-          component:ProGroup,
-          eventToolRender:({item,itemData})=>{
-            return [
-              {
-                text:'禁用',
-                onClick:()=>{
-                  item.disable()
-                  item.update({data:{
-                    disabled:true
-                  }})
-                }
-              }
-            ]
-
-          },
-          onEventClick:({item,itemData,setData,removeEvent})=>{
-            // 可以直接对sender,item进行操作，也可以使用setData函数对组件进行更新,使用removeEvent()删除任务
-            let textRef = null
-            new nomui.Modal({
-              content: {
-                header: {
-                  caption: {
-                    title: '修改信息',
-                  },
-                },
-                body: {
-                  children:{
-                    component:'Textbox',
-                    placeholder:'请输入任务名称',
-                    value:itemData.name,
-                    ref:(c)=>{
-                      textRef = c
+          component:'Layout',
+          body:{
+            children: {
+              component:ProGroup,
+              eventToolRender:({item,itemData})=>{
+                return [
+                  {
+                    text:'禁用',
+                    onClick:()=>{
+                      item.disable()
+                      item.update({data:{
+                        disabled:true
+                      }})
                     }
                   }
-                },
+                ]
+    
               },
-              onOk: ({ sender }) => {
-               
-                const newData = Object.assign(itemData,{name:textRef.getValue()})
-                setData(newData) // 更新数据
-                sender.close()
+              onEventClick:({item,itemData,setData,removeEvent})=>{
+                // 可以直接对sender,item进行操作，也可以使用setData函数对组件进行更新,使用removeEvent()删除任务
+                let textRef = null
+                new nomui.Modal({
+                  content: {
+                    header: {
+                      caption: {
+                        title: '修改信息',
+                      },
+                    },
+                    body: {
+                      children:{
+                        component:'Textbox',
+                        placeholder:'请输入任务名称',
+                        value:itemData.name,
+                        ref:(c)=>{
+                          textRef = c
+                        }
+                      }
+                    },
+                  },
+                  onOk: ({ sender }) => {
+                   
+                    const newData = Object.assign(itemData,{name:textRef.getValue()})
+                    setData(newData) // 更新数据
+                    sender.close()
+                  },
+                })
+    
               },
-            })
-
+              onEventDrop:({sender})=>{
+                console.log(sender.getData())
+              },
+              onEventCreate:(args)=>{
+                console.log(args)
+              },
+              onEventDelete:(args)=>{
+                console.log(args)
+              }
+    
+            }
           },
-          onEventDrop:({sender})=>{
-            console.log(sender.getData())
-          },
-          onEventCreate:(args)=>{
-            console.log(args)
-          },
-          onEventDelete:(args)=>{
-            console.log(args)
+         
+          header:{
+          
+              children:{
+                component:'Button',
+                text:'getData'
+              }
+         
           }
-
         }
       },
 
