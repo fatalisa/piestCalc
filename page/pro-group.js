@@ -80,7 +80,17 @@ define(['nomui-components/pro-group/index.js','css!page/style.css'], function (P
               },
             })
 
+          },
+          onEventDrop:({sender})=>{
+            console.log(sender.getData())
+          },
+          onEventCreate:(args)=>{
+            console.log(args)
+          },
+          onEventDelete:(args)=>{
+            console.log(args)
           }
+
         }
       },
 

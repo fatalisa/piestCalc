@@ -214,8 +214,7 @@ define([
                                   const val = input.getValue()
                                   if (val && val.length) {
                                     const list = item.eventList
-
-                                    list.appendDataItem({
+                                    const d = {
                                       id: nomui.utils.newGuid(),
                                       name: val,
                                       status: null,
@@ -224,7 +223,10 @@ define([
                                       date: null,
                                       tasks: 0,
                                       eventRender: null,
-                                    })
+                                    }
+
+                                    list.appendDataItem(d)
+                                    me._handleEventCreate(d)
                                     input.clear()
                                   }
 
@@ -388,7 +390,7 @@ define([
                         items: [...tools,{
                           text:'删除',
                           onClick:()=>{
-                            me._removeEvent(item)
+                            me._removeEvent({item,itemData})
                           }
                         }],
                       },
@@ -479,7 +481,9 @@ define([
         return
       }
 
-      console.log(this.getData())
+      this.props.onEventDrop && this._callHandler(this.props.onEventDrop)
+
+
     }
 
     _handleEventDrag() {
@@ -492,6 +496,10 @@ define([
       })
     }
 
+    _handleEventCreate(data) {
+      this.props.onEventCreate && this._callHandler(this.props.onEventCreate,{itemData:data})
+    }
+
     _onEventClick({ item, itemData }) {
       this._callHandler(this.props.onEventClick, {
         item,
@@ -502,13 +510,14 @@ define([
           })
         },
         removeEvent: () => {
-          this._removeEvent(item)
+          this._removeEvent({item,itemData})
         },
       })
     }
 
-    _removeEvent(item) {
+    _removeEvent({item,itemData}) {
       item.remove()
+      this.props.onEventDelete && this._callHandler(this.props.onEventDelete,{itemData})
     }
 
     _appendList() {
