@@ -159,7 +159,10 @@ define([
                     align:'center',
                     cols: [
                       {
-                        children: itemData.name,
+                        attrs:{
+                          title:itemData.name
+                        },
+                        children: itemData.name.length>12?`${itemData.name.substring(0,11)}...`:itemData.name,
                       },
                       {
                         grow:true,
@@ -186,12 +189,17 @@ define([
                               onClick:()=>{
                                 let inputRef = null
                                 new nomui.Modal({
+                                  size:'xsmall',
                                   content: {
-                                   
+                                    header:{
+                                      caption: {
+                                        title: '修改名称',
+                                      },
+                                    },
                                     body: {
                                       children:{
                                         component:'Textbox',
-                                        placeholder:'请输入',
+                                        placeholder:'请输入新名称',
                                         value:itemData.name,
                                         ref:(c)=>{
                                           inputRef = c
@@ -202,8 +210,6 @@ define([
                                   onOk: ({ sender }) => {
 
                                     const currentData = me.getData().filter(n=>{return n.id === itemData.id})[0]
-
-                                   
                                     const newData = Object.assign(currentData,{name:inputRef.getValue()})
                                     item.update({data:newData})
                                     me._fixList()
