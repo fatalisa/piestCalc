@@ -160,6 +160,9 @@ define([
                         classes: {
                           'pro-group-title-count': true,
                         },
+                        onCreated:({inst})=>{
+                          item.eventCount = inst
+                        },
                         children:
                           (itemData.events && itemData.events.length) || 0,
                       },
@@ -227,7 +230,10 @@ define([
                                     }
 
                                     list.appendDataItem(d)
+                                   
                                     me._handleEventCreate(d)
+                                    
+                                     me._fixListCount(list.element.querySelector('ul'))
                                     input.clear()
                                   }
 
@@ -458,6 +464,8 @@ define([
 
       this.listDrag.on('drop', function (el, target, source, sibling) {
         me._handleEventDrop({ el, target, source, sibling })
+        me._fixListCount(source)
+        me._fixListCount(target)
       })
 
       this.listDrag.on('cancel', function (el, container, source) {
@@ -467,6 +475,13 @@ define([
       this.listDrag.on('drag', function (el, source) {
         me._handleEventDrag()
       })
+    }
+
+    _fixListCount(target) {
+      const box = target.closest('.pro-group-box')
+      const num = target.childNodes.length
+      const node = box.querySelector('.pro-group-title-count')
+      node.innerText = num
     }
 
     _handleEventDrop({ el, target, source, sibling, isCancel }) {
@@ -520,7 +535,9 @@ define([
     }
 
     _removeEvent({item,itemData}) {
+      const target = item.element.closest('ul')
       item.remove()
+      this._fixListCount(target)
       this.props.onEventDelete && this._callHandler(this.props.onEventDelete,{itemData})
       this._handleChange()
     }
