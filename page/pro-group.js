@@ -4,6 +4,173 @@ define(['nomui-components/pro-group/index.js','css!page/style.css'], function (P
 
   let groupRef = null
 
+  const data  = [
+    {
+      id: '001',
+      name: '需求提案',
+      events: [
+        {
+          id: '00101',
+          name: 'app原型设计',
+          status: 'warning',
+          checked: true,
+          disabled: false,
+          date: '2023-01-05',
+          tasks: 3,
+          eventRender: null,
+        },
+        {
+          id: '00102',
+          name: 'web原型设计',
+          status: 'warning',
+          checked: false,
+          disabled: false,
+          date: '2023-01-08',
+          tasks: 1,
+          eventRender: null,
+        },
+
+        {
+          id: '00103',
+          name: '测试1',
+          status: null,
+          checked: false,
+          disabled: false,
+          date: '2023-01-12',
+          tasks: 1,
+          eventRender: null,
+        },
+        {
+          id: '00104',
+          name: '测试2',
+          status: null,
+          checked: false,
+          disabled: false,
+          date: null,
+          tasks: 1,
+          eventRender: null,
+        },
+        {
+          id: '00105',
+          name: '测试3',
+          status: null,
+          checked: false,
+          disabled: false,
+          date: '2023-01-07',
+          tasks: 1,
+          eventRender: null,
+        },
+      ],
+    },
+    {
+      id: '002',
+      name: '前期设计',
+      events: [
+        {
+          id: '00102',
+          name: 'UI设计',
+          status: 'success',
+          checked: false,
+          disabled: false,
+          date: '2023-01-10',
+          tasks: 3,
+          eventRender: null,
+        },
+      ],
+    },
+  ]
+
+  const data2 = [
+    {
+      id: '001',
+      name: '需求提案',
+      events: [
+        {
+          id: '00101',
+          name: 'app原型设计',
+          status: 'warning',
+          checked: true,
+          disabled: false,
+          date: '2023-01-05',
+          tasks: 3,
+          eventRender: null,
+        },
+        {
+          id: '00102',
+          name: 'web原型设计',
+          status: 'warning',
+          checked: false,
+          disabled: false,
+          date: '2023-01-08',
+          tasks: 1,
+          eventRender: null,
+        },
+
+        {
+          id: '00103',
+          name: '测试1',
+          status: null,
+          checked: false,
+          disabled: false,
+          date: '2023-01-12',
+          tasks: 1,
+          eventRender: null,
+        },
+        {
+          id: '00104',
+          name: '测试2',
+          status: null,
+          checked: false,
+          disabled: false,
+          date: null,
+          tasks: 1,
+          eventRender: null,
+        },
+        {
+          id: '00105',
+          name: '测试3',
+          status: null,
+          checked: false,
+          disabled: false,
+          date: '2023-01-07',
+          tasks: 1,
+          eventRender: null,
+        },
+      ],
+    },
+    {
+      id: '002',
+      name: '前期设计',
+      events: [
+        {
+          id: '00102',
+          name: 'UI设计',
+          status: 'success',
+          checked: false,
+          disabled: false,
+          date: '2023-01-10',
+          tasks: 3,
+          eventRender: null,
+        },
+      ],
+    },
+    {
+      id: '003',
+      name: '开发',
+      events: [
+        {
+          id: '00302',
+          name: '后端开发',
+          status: 'success',
+          checked: false,
+          disabled: false,
+          date: '2023-01-10',
+          tasks: 3,
+          eventRender: null,
+        },
+      ],
+    },
+  ]
 
 
 
@@ -19,14 +186,26 @@ define(['nomui-components/pro-group/index.js','css!page/style.css'], function (P
           header:{
           
             children:{
-              component:'Button',
-              text:'getData',
-              onClick:()=>{
-                new nomui.Alert({
-                  title:'当前数据为',
-                  description:JSON.stringify(groupRef.getData())
-                })
-              }
+              component:'Flex',
+              cols:[
+                {
+                  component:'Button',
+                  text:'getData',
+                  onClick:()=>{
+                    new nomui.Alert({
+                      title:'当前数据为',
+                      description:JSON.stringify(groupRef.getData())
+                    })
+                  }
+                },
+                {
+                  component:'Button',
+                  text:'setData',
+                  onClick:()=>{
+                    groupRef.update({data:data2})
+                  }
+                }
+              ]
             }
        
         },
@@ -37,6 +216,7 @@ define(['nomui-components/pro-group/index.js','css!page/style.css'], function (P
               ref:(c)=>{
                 groupRef = c
               },
+              data:data,
               eventToolRender:({item,itemData})=>{
                 return [
                   {
