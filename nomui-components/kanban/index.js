@@ -565,6 +565,13 @@ define([
       return data
     }
 
+    _update(props) {
+      if (props.data) {
+        this._fixList()
+      }
+
+    }
+
     getData() {
       const data = this.mainList
         .getAllItems()
