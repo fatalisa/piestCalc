@@ -1,4 +1,4 @@
-define(['nomui-components/pro-group/index.js','css!page/style.css'], function (ProGroup) {
+define(['nomui-components/kanban/index.js','css!page/style.css'], function (Kanban) {
   
  
 
@@ -212,7 +212,7 @@ define(['nomui-components/pro-group/index.js','css!page/style.css'], function (P
 
           body:{
             children: {
-              component:ProGroup,
+              component:Kanban,
               ref:(c)=>{
                 groupRef = c
               },

@@ -1,7 +1,7 @@
 define([
   'dragula',
   'css!/libs/dragula/dragula.min.css',
-  'css!/nomui-components/pro-group/index.css',
+  'css!/nomui-components/kanban/index.css',
 ], function (Dragula) {
   nomui.Icon.add(
     'tasks',
@@ -9,7 +9,7 @@ define([
     'Uncategorized'
   )
 
-  class ProGroup extends nomui.Component {
+  class Kanban extends nomui.Component {
     constructor(props, ...mixins) {
       const defaults = {
         data: null,
@@ -37,14 +37,14 @@ define([
             this.mainList = inst
           },
           classes: {
-            'pro-group-main': true,
+            'kanban-main': true,
           },
           itemRender: ({ itemData, item }) => {
             if (itemData.isCreateBtn) {
               return {
                 component: 'Flex',
                 classes: {
-                  'pro-group-list-add': true,
+                  'kanban-list-add': true,
                 },
                 align: 'center',
                 cols: [
@@ -67,7 +67,7 @@ define([
             return {
               component: 'Flex',
               classes: {
-                'pro-group-box': true,
+                'kanban-box': true,
               },
               rows: [
                 {
@@ -75,7 +75,7 @@ define([
                     component: 'Flex',
                     gutter: 'small',
                     classes: {
-                      'pro-group-title': true,
+                      'kanban-title': true,
                     },
                     attrs: {
                       style: {
@@ -94,7 +94,7 @@ define([
                         grow:true,
                         children:{
                           classes: {
-                            'pro-group-title-count': true,
+                            'kanban-title-count': true,
                           },
                           onCreated:({inst})=>{
                             item.eventCount = inst
@@ -155,17 +155,17 @@ define([
                 {
                   children: {
                     classes: {
-                      'pro-group-event-add': true,
+                      'kanban-event-add': true,
                     },
 
                     children: [
                       {
                         classes: {
-                          'pro-group-event-add-btn': true,
+                          'kanban-event-add-btn': true,
                         },
                         onClick: ({ sender }) => {
                           sender.parent.parent.parent.element.classList.add(
-                            'pro-group-inputing'
+                            'kanban-inputing'
                           )
                           item.input.focus()
                         },
@@ -177,7 +177,7 @@ define([
                       {
                         component: 'Flex',
                         classes: {
-                          'pro-group-event-add-input-panel': true,
+                          'kanban-event-add-input-panel': true,
                         },
                         rows: [
                           {
@@ -220,8 +220,8 @@ define([
                                   }
 
                                   sender.element
-                                    .closest('.pro-group-inputing')
-                                    .classList.remove('pro-group-inputing')
+                                    .closest('.kanban-inputing')
+                                    .classList.remove('kanban-inputing')
                                 },
                               },
                               {
@@ -232,8 +232,8 @@ define([
                                   item.input.clear()
 
                                   sender.element
-                                    .closest('.pro-group-inputing')
-                                    .classList.remove('pro-group-inputing')
+                                    .closest('.kanban-inputing')
+                                    .classList.remove('kanban-inputing')
                                 },
                               },
                             ],
@@ -278,7 +278,7 @@ define([
                       component: 'Icon',
                       type: 'tasks',
                       classes: {
-                        'pro-group-event-icon': true,
+                        'kanban-event-icon': true,
                       },
                     },
                     { children: itemData.tasks },
@@ -292,7 +292,7 @@ define([
                       component: 'Icon',
                       type: 'clock',
                       classes: {
-                        'pro-group-event-icon': true,
+                        'kanban-event-icon': true,
                       },
                     },
                     { children: itemData.date },
@@ -306,7 +306,7 @@ define([
       return {
         component: 'List',
         classes: {
-          'pro-group-box-list': true,
+          'kanban-box-list': true,
         },
 
         onCreated: ({ inst }) => {
@@ -321,7 +321,7 @@ define([
           return {
             component: 'Flex',
             classes: {
-              'pro-group-card': true,
+              'kanban-card': true,
             },
             gap: 'small',
 
@@ -332,12 +332,12 @@ define([
                 cols: [
                   {
                     classes: {
-                      'pro-group-card-status-line': true,
+                      'kanban-card-status-line': true,
                     },
                   },
                   {
                     classes: {
-                      'pro-group-checkbox': true,
+                      'kanban-checkbox': true,
                     },
                     children: {
                       component: 'Checkbox',
@@ -368,7 +368,7 @@ define([
                   },
                   {
                     classes:{
-                      'pro-group-event-tools':true
+                      'kanban-event-tools':true
 
                     },
                       children: {
@@ -418,8 +418,8 @@ define([
       const me = this
       const listArr = []
 
-      const boxArr = [this.element.querySelector('.pro-group-main ul')]
-      const lists = this.element.querySelectorAll('.pro-group-box-list')
+      const boxArr = [this.element.querySelector('.kanban-main ul')]
+      const lists = this.element.querySelectorAll('.kanban-box-list')
       lists.forEach((n) => {
         listArr.push(n.querySelector('ul'))
       })
@@ -427,7 +427,7 @@ define([
       this.boxDrag = Dragula({
         containers: boxArr,
         moves: function (el, source, handle, sibling) {
-          if (handle.closest('.pro-group-title')) {
+          if (handle.closest('.kanban-title')) {
             return true
           }
           return false
@@ -437,7 +437,7 @@ define([
       this.listDrag = Dragula({
         containers: listArr,
         moves: function (el, source, handle, sibling) {
-          if (handle.closest('.pro-group-card ')) {
+          if (handle.closest('.kanban-card ')) {
             return true
           }
           return false
@@ -460,18 +460,18 @@ define([
     }
 
     _fixListCount(target) {
-      const box = target.closest('.pro-group-box')
+      const box = target.closest('.kanban-box')
       const num = target.childNodes.length
-      const node = box.querySelector('.pro-group-title-count')
+      const node = box.querySelector('.kanban-title-count')
       node.innerText = num
     }
 
     _handleEventDrop({ el, target, source, sibling, isCancel }) {
-      this.element.querySelectorAll('.pro-group-event-add').forEach((n) => {
+      this.element.querySelectorAll('.kanban-event-add').forEach((n) => {
         n.classList.remove('hide')
       })
 
-      this.element.querySelectorAll('.pro-group-box-list').forEach((n) => {
+      this.element.querySelectorAll('.kanban-box-list').forEach((n) => {
         n.closest('.nom-flex-item').classList.remove('strech')
       })
 
@@ -486,11 +486,11 @@ define([
     }
 
     _handleEventDrag() {
-      this.element.querySelectorAll('.pro-group-event-add').forEach((n) => {
+      this.element.querySelectorAll('.kanban-event-add').forEach((n) => {
         n.classList.add('hide')
       })
 
-      this.element.querySelectorAll('.pro-group-box-list').forEach((n) => {
+      this.element.querySelectorAll('.kanban-box-list').forEach((n) => {
         n.closest('.nom-flex-item').classList.add('strech')
       })
     }
@@ -584,5 +584,5 @@ define([
     }
   }
 
-  return ProGroup
+  return Kanban
 })
