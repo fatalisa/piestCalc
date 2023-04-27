@@ -18,10 +18,10 @@ define([
         onEventClick: null,
         onEventDrop: null,
         groupTitleRender: null,
-        groupToolRender:null,
+        groupToolRender: null,
         eventRender: null,
-        eventToolRende:null,
-        onChange:null,
+        eventToolRende: null,
+        onChange: null,
       }
       super(nomui.Component.extendProps(defaults, props), ...mixins)
     }
@@ -62,8 +62,10 @@ define([
               }
             }
 
-            const {groupToolRender} = me.props
-            const tools = groupToolRender?groupToolRender({item,itemData}):[]
+            const { groupToolRender } = me.props
+            const tools = groupToolRender
+              ? groupToolRender({ item, itemData })
+              : []
             return {
               component: 'Flex',
               classes: {
@@ -82,72 +84,80 @@ define([
                         padding: '0 .25rem .5rem .25rem',
                       },
                     },
-                    align:'center',
+                    align: 'center',
                     cols: [
                       {
-                        attrs:{
-                          title:itemData.name
+                        attrs: {
+                          title: itemData.name,
                         },
-                        children: itemData.name.length>12?`${itemData.name.substring(0,11)}...`:itemData.name,
+                        children:
+                          itemData.name.length > 12
+                            ? `${itemData.name.substring(0, 11)}...`
+                            : itemData.name,
                       },
                       {
-                        grow:true,
-                        children:{
+                        grow: true,
+                        children: {
                           classes: {
                             'kanban-title-count': true,
                           },
-                          onCreated:({inst})=>{
+                          onCreated: ({ inst }) => {
                             item.eventCount = inst
                           },
                           children:
                             (itemData.events && itemData.events.length) || 0,
-                        }
+                        },
                       },
                       {
-                        children:{
-                          component:'Dropdown',
-                          rightIcon:'ellipsis',
-                          type:'text',
-                          inline:true,
-                          items:[
+                        children: {
+                          component: 'Dropdown',
+                          rightIcon: 'ellipsis',
+                          type: 'text',
+                          inline: true,
+                          items: [
                             {
-                              text:'重命名',
-                              onClick:()=>{
+                              text: '重命名',
+                              onClick: () => {
                                 let inputRef = null
                                 new nomui.Modal({
-                                  size:'xsmall',
+                                  size: 'xsmall',
                                   content: {
-                                    header:{
+                                    header: {
                                       caption: {
                                         title: '修改名称',
                                       },
                                     },
                                     body: {
-                                      children:{
-                                        component:'Textbox',
-                                        placeholder:'请输入新名称',
-                                        value:itemData.name,
-                                        ref:(c)=>{
+                                      children: {
+                                        component: 'Textbox',
+                                        placeholder: '请输入新名称',
+                                        value: itemData.name,
+                                        ref: (c) => {
                                           inputRef = c
-                                        }
-                                      }
+                                        },
+                                      },
                                     },
                                   },
                                   onOk: ({ sender }) => {
-
-                                    const currentData = me.getData().filter(n=>{return n.id === itemData.id})[0]
-                                    const newData = Object.assign(currentData,{name:inputRef.getValue()})
-                                    item.update({data:newData})
+                                    const currentData = me
+                                      .getData()
+                                      .filter((n) => {
+                                        return n.id === itemData.id
+                                      })[0]
+                                    const newData = Object.assign(currentData, {
+                                      name: inputRef.getValue(),
+                                    })
+                                    item.update({ data: newData })
                                     me._fixList()
                                     sender.close()
                                   },
                                 })
-                              }
+                              },
                             },
-                            ...tools
-                          ]
-                        }
-                      }
+                            ...tools,
+                          ],
+                        },
+                      },
                     ],
                   },
                 },
@@ -212,10 +222,12 @@ define([
                                     }
 
                                     list.appendDataItem(d)
-                                   
+
                                     me._handleEventCreate(d)
-                                    
-                                     me._fixListCount(list.element.querySelector('ul'))
+
+                                    me._fixListCount(
+                                      list.element.querySelector('ul')
+                                    )
                                     input.clear()
                                   }
 
@@ -261,7 +273,7 @@ define([
       const { eventRender, eventToolRender } = this.props
 
       const defaultRender =
-      eventRender ||
+        eventRender ||
         function ({ itemData }) {
           return {
             children: {
@@ -342,9 +354,9 @@ define([
                     children: {
                       component: 'Checkbox',
                       value: itemData.checked,
-                      onValueChange:({newValue})=>{
-                        item.update({data:{checked:newValue}})
-                      }
+                      onValueChange: ({ newValue }) => {
+                        item.update({ data: { checked: newValue } })
+                      },
                     },
                   },
                   {
@@ -367,23 +379,25 @@ define([
                     },
                   },
                   {
-                    classes:{
-                      'kanban-event-tools':true
-
+                    classes: {
+                      'kanban-event-tools': true,
                     },
-                      children: {
-                        component: 'Dropdown',
-                        rightIcon: 'ellipsis',
-                        type: 'text',
-                        size: 'small',
-                        items: [...tools,{
-                          text:'删除',
-                          onClick:()=>{
-                            me._removeEvent({item,itemData})
-                          }
-                        }],
-                      },
+                    children: {
+                      component: 'Dropdown',
+                      rightIcon: 'ellipsis',
+                      type: 'text',
+                      size: 'small',
+                      items: [
+                        ...tools,
+                        {
+                          text: '删除',
+                          onClick: () => {
+                            me._removeEvent({ item, itemData })
+                          },
+                        },
+                      ],
                     },
+                  },
                 ],
               },
               {
@@ -481,8 +495,6 @@ define([
 
       this.props.onEventDrop && this._callHandler(this.props.onEventDrop)
       this._handleChange()
-
-
     }
 
     _handleEventDrag() {
@@ -496,36 +508,40 @@ define([
     }
 
     _handleEventCreate(data) {
-      this.props.onEventCreate && this._callHandler(this.props.onEventCreate,{itemData:data})
+      this.props.onEventCreate &&
+        this._callHandler(this.props.onEventCreate, { itemData: data })
       this._handleChange()
     }
 
     _onEventClick({ item, itemData }) {
-      this.props.onEventClick && this._callHandler(this.props.onEventClick, {
-        item,
-        itemData,
-        setData: function (result) {
-          item.update({
-            data: result,
-          })
-        },
-        removeEvent: () => {
-          this._removeEvent({item,itemData})
-        },
-      })
+      this.props.onEventClick &&
+        this._callHandler(this.props.onEventClick, {
+          item,
+          itemData,
+          setData: function (result) {
+            item.update({
+              data: result,
+            })
+          },
+          removeEvent: () => {
+            this._removeEvent({ item, itemData })
+          },
+        })
       this._handleChange()
     }
 
-    _removeEvent({item,itemData}) {
+    _removeEvent({ item, itemData }) {
       const target = item.element.closest('ul')
       item.remove()
       this._fixListCount(target)
-      this.props.onEventDelete && this._callHandler(this.props.onEventDelete,{itemData})
+      this.props.onEventDelete &&
+        this._callHandler(this.props.onEventDelete, { itemData })
       this._handleChange()
     }
 
     _handleChange() {
-      this.props.onChange && this._callHandler(this.props.onChange,{data:this.getData()})
+      this.props.onChange &&
+        this._callHandler(this.props.onChange, { data: this.getData() })
     }
 
     _appendList() {
@@ -569,7 +585,6 @@ define([
       if (props.data) {
         this._fixList()
       }
-
     }
 
     getData() {
