@@ -295,7 +295,10 @@ const handleCalc = ()=>{
                     {
                       field:'heal',
                       title:'治疗量',
-                      sortable:'number'
+                      sortable:'number',
+                      cellRender:({cellData})=>{
+                        return cellData.toFixed(0)
+                      }
                     },
                     {
                       field:'hpm',
