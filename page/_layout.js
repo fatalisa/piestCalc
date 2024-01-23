@@ -265,7 +265,27 @@ const handleCalc = ()=>{
                     {
                       field:'name',
                       title:'技能名称',
-                      sortable:'string'
+                      sortable:'string',
+                      cellRender:({cellData})=>{
+                        let c = 'var(--nom-color-warning)'
+                        if (cellData.includes('恢复')) {
+                          c = 'var(--nom-color-success)'
+                        }
+                        if (cellData.includes('快速')) {
+                          c = 'var(--nom-color-danger)'
+                        }
+                        if (cellData.includes('强效')) {
+                          c = 'var(--nom-color-info)'
+                        }
+                        return {
+                          attrs:{
+                            style:{
+                              color:c
+                            }
+                          },
+                          children:cellData
+                        }
+                      }
                     },
                     {
                       field:'cost',
