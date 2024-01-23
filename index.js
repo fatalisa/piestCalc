@@ -99,61 +99,61 @@ const spells=[
         "name": "恢复1",
         "cost": 30,
         "heal": 45,
-        "add": 0.45
+        "add": 1
     },
     {
         "name": "恢复2",
         "cost": 65,
         "heal": 100,
-        "add": 0.45
+        "add": 1
     },
     {
         "name": "恢复3",
         "cost": 105,
         "heal": 175,
-        "add": 0.45
+        "add": 1
     },
     {
         "name": "恢复4",
         "cost": 140,
         "heal": 245,
-        "add": 0.45
+        "add":1
     },
     {
         "name": "恢复5",
         "cost": 170,
         "heal": 315,
-        "add": 0.45
+        "add": 1
     },
     {
         "name": "恢复6",
         "cost": 205,
         "heal": 400,
-        "add": 0.45
+        "add":1
     },
     {
         "name": "恢复7",
         "cost": 250,
         "heal": 510,
-        "add": 0.45
+        "add": 1
     },
     {
         "name": "恢复8",
         "cost": 305,
         "heal": 650,
-        "add": 0.45
+        "add": 1
     },
     {
         "name": "恢复9",
         "cost": 365,
         "heal": 810,
-        "add": 0.45
+        "add": 1
     },
     {
         "name": "恢复10",
         "cost": 410,
         "heal": 970,
-        "add": 0.45
+        "add": 1
     }
 ]
 
