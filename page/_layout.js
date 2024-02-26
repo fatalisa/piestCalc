@@ -2,7 +2,7 @@ define([], function () {
 
   const refs = {}
 
-  const spells=[
+  const spellsPriest=[
     {
         "name": "快速01",
         "cost": 125,
@@ -187,6 +187,91 @@ define([], function () {
     }
 ]
 
+const spellsShaman=[
+  {
+      "name": "治疗链01",
+      "cost": 260,
+      "heal": 356,
+      "add": 1*(2.5/3.5),
+  },
+  {
+    "name": "治疗链02",
+    "cost": 315,
+    "heal": 449,
+    "add": 1*(2.5/3.5),
+},
+{
+  "name": "治疗链03",
+  "cost": 405,
+  "heal": 606,
+  "add": 1*(2.5/3.5),
+},
+
+{
+  "name": "治疗波01",
+  "cost": 25,
+  "heal": 41,
+  "add": 0.28*(1.5/3.5),
+},
+{
+  "name": "治疗波02",
+  "cost": 45,
+  "heal": 76,
+  "add": 0.47*(2/3.5),
+},
+{
+  "name": "治疗波03",
+  "cost": 80,
+  "heal": 149,
+  "add": 0.28*(2.5/3.5),
+},
+{
+  "name": "治疗波04",
+  "cost": 155,
+  "heal": 303,
+  "add": 0.92*(3/3.5),
+},
+{
+  "name": "治疗波05",
+  "cost": 200,
+  "heal": 421,
+  "add": 0.1*(3/3.5),
+},
+{
+  "name": "治疗波06",
+  "cost": 265,
+  "heal": 595,
+  "add": 0.1*(3/3.5),
+},
+{
+  "name": "治疗波07",
+  "cost": 340,
+  "heal": 816,
+  "add": 0.1*(3/3.5),
+},
+{
+  "name": "治疗波08",
+  "cost": 440,
+  "heal": 1115,
+  "add": 0.1*(3/3.5),
+},
+{
+  "name": "治疗波09",
+  "cost": 560,
+  "heal": 1486,
+  "add": 0.1*(3/3.5),
+},
+{
+  "name": "治疗波10",
+  "cost": 620,
+  "heal": 1735,
+  "add": 0.1*(3/3.5),
+},
+  
+]
+
+let spells = spellsPriest
+
 
 
 const countHeal=(power)=> {
@@ -207,6 +292,8 @@ const countHeal=(power)=> {
     return arr
 
 }
+
+
 
 
 const handleCalc = ()=>{
@@ -238,6 +325,33 @@ const handleCalc = ()=>{
                {
                 align:'center',
                 cols:[
+                  {
+                    component:'Select',
+                    allowClear:false,
+                    controlWidth: 'small',
+                    ref:(c)=>{
+                      refs.classRef = c
+                    },
+                    value:'1',
+                    options:[
+                      {
+                        text:'牧师',
+                        value:'1'
+                      },
+                      {
+                        text:'萨满',
+                        value:'2'
+                      }
+                    ],
+                    onValueChange:({newValue})=>{
+                      if (newValue==='1') {
+                        spells = spellsPriest
+                      }
+                      if (newValue==='2') {
+                        spells = spellsShaman
+                      }
+                    }
+                  },
                   {
                     component:'Textbox',
                     ref:(c)=>{
@@ -271,10 +385,10 @@ const handleCalc = ()=>{
                         if (cellData.includes('恢复')) {
                           c = 'var(--nom-color-success)'
                         }
-                        if (cellData.includes('快速')) {
+                        if (cellData.includes('快速') || cellData.includes('治疗链')) {
                           c = 'var(--nom-color-danger)'
                         }
-                        if (cellData.includes('强效')) {
+                        if (cellData.includes('强效') || cellData.includes('治疗波')) {
                           c = 'var(--nom-color-info)'
                         }
                         return {
