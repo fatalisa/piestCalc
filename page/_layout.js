@@ -208,6 +208,42 @@ const spellsShaman=[
 },
 
 {
+  "name": "次级治疗波01",
+  "cost": 105,
+  "heal": 182,
+  "add": 1*(1.5/3.5),
+},
+{
+  "name": "次级治疗波02",
+  "cost": 145,
+  "heal": 274,
+  "add": 1*(1.5/3.5),
+},
+{
+  "name": "次级治疗波03",
+  "cost": 185,
+  "heal": 371,
+  "add": 1*(1.5/3.5),
+},
+{
+  "name": "次级治疗波04",
+  "cost": 235,
+  "heal": 500,
+  "add": 1*(1.5/3.5),
+},
+{
+  "name": "次级治疗波05",
+  "cost": 305,
+  "heal": 686,
+  "add": 1*(1.5/3.5),
+},
+{
+  "name": "次级治疗波06",
+  "cost": 380,
+  "heal": 880,
+  "add": 1*(1.5/3.5),
+},
+{
   "name": "治疗波01",
   "cost": 25,
   "heal": 41,
@@ -388,7 +424,7 @@ const handleCalc = ()=>{
                         if (cellData.includes('快速') || cellData.includes('治疗链')) {
                           c = 'var(--nom-color-danger)'
                         }
-                        if (cellData.includes('强效') || cellData.includes('治疗波')) {
+                        if (cellData.includes('强效') || cellData.includes('次级治疗波')) {
                           c = 'var(--nom-color-info)'
                         }
                         return {
